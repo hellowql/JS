@@ -19,7 +19,7 @@ if (!!window.jQuery) {
                     css:{
                         position:'absolute',
                         top:'5px',
-                        color:'#999',
+                        color:'#bbb',
                         cursor:'text',
                         fontSize:'14px'
                     }
