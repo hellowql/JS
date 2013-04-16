@@ -20,7 +20,7 @@ if (!!window.jQuery) {
                         top:'5px',
                         color:'#999',
                         cursor:'text',
-                        'font-size':'14px'
+                        fontSize:'14px'
                     }
                 }, obj);
                 this.each(function () {
