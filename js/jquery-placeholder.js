@@ -3,6 +3,7 @@
  * User: wuqinglong
  * Date: 13-4-16
  * Time: 下午12:42
+ * Version: 0.1
  * To change this template use File | Settings | File Templates.
  */
 if (!!window.jQuery) {
