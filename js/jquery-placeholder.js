@@ -9,43 +9,46 @@ if (!!window.jQuery) {
     (function ($) {
         $.fn.placeholder = function (obj) {
             var
-                pStr = 'placeholder1',
-                supported = 'placeholder' in document.createElement('input')
-                , html, placeholder, param = $.extend({
-                    placeholder:''
-                }, obj);
-            this.each(function (param) {
-                var $this = $(this);
-                if (!supported) {
-                    return this;
-                }
-                html = $('<label></label>');
-                placeholder = $this.attr(pStr) || param.placeholder;
-                if (placeholder != undefined) {
-                    html.text(placeholder);
-                }
-                html.css({
-                    position:'absolute',
-                    //top: '0px',
-                    //'verticalAlign':'center',
-                    left:'5px',
-                    color:'#999',
-                    cursor:'text'
-                });
-                $this.parent().css('position', 'relative');
-                $this.before(html);
-                html.bind('click.placeholder', function () {
-                    $(this).next().focus();
-                });
-                $this.bind('keyup.placeholder blur.placeholder',function () {
-                    if (this.value.length > 0) {
-                        $(this).prev().css('display', 'none');
-                    } else {
-                        $(this).prev().css('display', 'inline');
+                pStr = 'placeholder',
+                supported = pStr in document.createElement('input')
+                , html, placeholder, param;
+            if (!supported) {
+                param = $.extend({
+                    placeholder:'',
+                    css:{
+                        position:'absolute',
+                        top:'5px',
+                        color:'#999',
+                        cursor:'text',
+                        'font-size':'14px'
                     }
-                }).triggerHandler('blur.placeholder');
-            });
-            pStr = supported = html = placeholder = null;
+                }, obj);
+                this.each(function () {
+                    var $this = $(this);
+                    html = $('<label></label>');
+                    placeholder = $this.attr(pStr) || param.placeholder;
+                    if (placeholder != undefined) {
+                        html.text(placeholder);
+                    }
+                    html.css(param.css);
+                    if ($this.parent().is('td')) {
+                        $this.wrap('<div></div>')
+                    }
+                    $this.parent().css('position', 'relative');
+                    $this.before(html);
+                    html.bind('click.placeholder', function () {
+                        $(this).next().focus();
+                    });
+                    $this.bind('keyup.placeholder blur.placeholder',function () {
+                        if (this.value.length > 0) {
+                            $(this).prev().css('display', 'none');
+                        } else {
+                            $(this).prev().css('display', 'inline');
+                        }
+                    }).triggerHandler('blur.placeholder');
+                });
+            }
+            pStr = supported = html = placeholder = param = null;
             return this;
         }
     }(window.jQuery))
