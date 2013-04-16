@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bbf57524-3b4f-4002-941a-3cad0d022f0c" name="Default" comment="">
+    <list default="true" id="bbf57524-3b4f-4002-941a-3cad0d022f0c" name="Default" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="JS.iws" />
@@ -25,7 +25,7 @@
       <file leaf-file-name="placeholder.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/html/placeholder.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="25" selection-start="1249" selection-end="1249" vertical-scroll-proportion="2.357143">
+            <state line="31" column="57" selection-start="688" selection-end="688" vertical-scroll-proportion="2.357143">
               <folding />
             </state>
           </provider>
@@ -34,10 +34,8 @@
       <file leaf-file-name="jquery-placeholder.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/jquery-placeholder.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="73" column="12" selection-start="3253" selection-end="3253" vertical-scroll-proportion="0.66725045">
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state line="20" column="38" selection-start="631" selection-end="631" vertical-scroll-proportion="0.50087565">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -127,58 +125,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="JS" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="html" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -186,7 +132,7 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="fileTemplates" />
+    <property name="options.lastSelected" value="settings.xslt" />
     <property name="ChangesBrowser.SHOW_FLATTEN" value="true" />
     <property name="last_opened_file_path" value="$APPLICATION_HOME_DIR$/workspace" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
@@ -232,7 +178,15 @@
       <created>1366127000279</created>
       <updated>1366127000279</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1366127029031</created>
+      <updated>1366127029031</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;Conflicts:&#10;&#9;.idea/workspace.xml&#10;">
+      <created>1366127160157</created>
+      <updated>1366127160157</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -342,17 +296,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/html/placeholder.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="25" selection-start="1249" selection-end="1249" vertical-scroll-proportion="2.357143">
+        <state line="31" column="57" selection-start="688" selection-end="688" vertical-scroll-proportion="2.357143">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/jquery-placeholder.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="12" selection-start="3253" selection-end="3253" vertical-scroll-proportion="0.66725045">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
+        <state line="20" column="38" selection-start="631" selection-end="631" vertical-scroll-proportion="0.50087565">
+          <folding />
         </state>
       </provider>
     </entry>
