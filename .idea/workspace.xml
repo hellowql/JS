@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bbf57524-3b4f-4002-941a-3cad0d022f0c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/placeholder.html" afterPath="$PROJECT_DIR$/html/placeholder.html" />
     </list>
     <ignored path="JS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,7 +38,7 @@
       <file leaf-file-name="placeholder.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/html/placeholder.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="8" selection-start="393" selection-end="393" vertical-scroll-proportion="0.26047903">
+            <state line="35" column="52" selection-start="777" selection-end="777" vertical-scroll-proportion="0.5733533">
               <folding />
             </state>
           </provider>
@@ -64,7 +65,7 @@
       <file leaf-file-name="jquery-placeholder.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/jquery-placeholder.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="25" selection-start="558" selection-end="558" vertical-scroll-proportion="0.0">
+            <state line="47" column="25" selection-start="1862" selection-end="1862" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -100,8 +101,8 @@
         <option value="$PROJECT_DIR$/test/index.html" />
         <option value="$PROJECT_DIR$/html/d.html" />
         <option value="$PROJECT_DIR$/html/ds.xhtml" />
-        <option value="$PROJECT_DIR$/html/placeholder.html" />
         <option value="$PROJECT_DIR$/js/jquery-placeholder.js" />
+        <option value="$PROJECT_DIR$/html/placeholder.html" />
       </list>
     </option>
   </component>
@@ -282,7 +283,11 @@
       <created>1366113662078</created>
       <updated>1366113662078</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add placeholder library">
+      <created>1366113687617</created>
+      <updated>1366113687617</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -389,7 +394,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/jquery-placeholder.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="25" selection-start="558" selection-end="558" vertical-scroll-proportion="0.0">
+        <state line="47" column="25" selection-start="1862" selection-end="1862" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
@@ -398,7 +403,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/html/placeholder.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="8" selection-start="393" selection-end="393" vertical-scroll-proportion="0.26047903">
+        <state line="35" column="52" selection-start="777" selection-end="777" vertical-scroll-proportion="0.5733533">
           <folding />
         </state>
       </provider>
