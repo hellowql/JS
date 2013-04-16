@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bbf57524-3b4f-4002-941a-3cad0d022f0c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/placeholder.html" afterPath="$PROJECT_DIR$/html/placeholder.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/jquery-placeholder.js" afterPath="$PROJECT_DIR$/js/jquery-placeholder.js" />
     </list>
     <ignored path="JS.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,16 +28,16 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="7" selection-start="128" selection-end="128" vertical-scroll-proportion="-3.392857">
+            <state line="5" column="7" selection-start="128" selection-end="128" vertical-scroll-proportion="-0.6785714">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="placeholder.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="placeholder.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/html/placeholder.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="8" selection-start="393" selection-end="393" vertical-scroll-proportion="-14.25">
+            <state line="21" column="8" selection-start="393" selection-end="393" vertical-scroll-proportion="0.26047903">
               <folding />
             </state>
           </provider>
@@ -63,10 +61,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="jquery-placeholder.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="jquery-placeholder.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/jquery-placeholder.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="20" selection-start="282" selection-end="286" vertical-scroll-proportion="0.30028737">
+            <state line="18" column="25" selection-start="558" selection-end="558" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -207,12 +205,12 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="options.lastSelected" value="fileTemplates" />
     <property name="ChangesBrowser.SHOW_FLATTEN" value="true" />
-    <property name="options.lastSelected" value="reference.settings.ide.settings.web.browsers" />
     <property name="last_opened_file_path" value="$APPLICATION_HOME_DIR$/workspace" />
     <property name="DefaultHtmlFileTemplate" value="Xhtml" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -272,7 +270,19 @@
       <created>1366101510045</created>
       <updated>1366101510045</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add placeholder library">
+      <created>1366113395862</created>
+      <updated>1366113395862</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add placeholder library">
+      <created>1366113618425</created>
+      <updated>1366113618425</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add placeholder library">
+      <created>1366113662078</created>
+      <updated>1366113662078</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -283,7 +293,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21030346" sideWeight="0.6717452" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21030346" sideWeight="0.6717452" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
@@ -356,30 +366,9 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/event.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="156" selection-end="156" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="7" selection-start="128" selection-end="128" vertical-scroll-proportion="-3.392857">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/html/placeholder.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="8" selection-start="393" selection-end="393" vertical-scroll-proportion="-14.25">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/coll.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="32" selection-start="267" selection-end="267" vertical-scroll-proportion="0.30028737">
+        <state line="5" column="7" selection-start="128" selection-end="128" vertical-scroll-proportion="-0.6785714">
           <folding />
         </state>
       </provider>
@@ -400,10 +389,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/jquery-placeholder.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="20" selection-start="282" selection-end="286" vertical-scroll-proportion="0.30028737">
+        <state line="18" column="25" selection-start="558" selection-end="558" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/html/placeholder.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="8" selection-start="393" selection-end="393" vertical-scroll-proportion="0.26047903">
+          <folding />
         </state>
       </provider>
     </entry>
