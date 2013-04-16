@@ -48,6 +48,18 @@ if (!!window.jQuery) {
                         }
                     }).triggerHandler('blur.placeholder');
                 });
+
+                /*
+                 $this.bind('blur.placeholder',function () {
+                 if (this.value.length > 0) {
+                 $(this).prev().css('display', 'none');
+                 } else {
+                 $(this).prev().css('display', 'inline');
+                 }
+                 }).bind('keyup.placeholder focus.placeholder',function(){
+                 $(this).prev().css('display', 'none');
+                 }).triggerHandler('blur.placeholder');
+                 */
             }
             pStr = supported = html = placeholder = param = null;
             return this;
