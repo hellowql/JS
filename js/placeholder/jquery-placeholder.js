@@ -5,28 +5,28 @@
  * Time: 下午12:42
  * Version: 0.1
  *
- *  just be good for not support placeholder
+ *  Just be good for not support placeholder
+ *  need jQuery 1.4 or height
  */
 if (!!window.jQuery) {
-    (function ($) {
+    (function ($, undefined) {
         $.fn.placeholder = function (obj) {
-            var
-                html, placeholder, param = $.extend({
-                    placeholder:'placeholder', //placeholder attribute
-                    css:{// placeholder text css
-                        position:'absolute',
-                        top:'5px',
-                        left:'3px',
-                        color:'#bbb',
-                        cursor:'text',
-                        fontSize:'14px'
-                    },
-                    hideCss:false, //className and css how to take effect,true just className take effect
-                    hideStyle:'value', //enum:value,focus;hide placeholder when focus or value exists
-                    className:''//placeholder text className
-
-                }, obj),
-                supported = param.placeholder in document.createElement('input');
+            var html, placeholder, param, supported;
+            param = $.extend(true, {
+                placeholder:'placeholder', //placeholder attribute,default will use explorer original function
+                css:{// placeholder text dom css
+                    position:'absolute',
+                    top:'5px',
+                    left:'4px',
+                    color:'#bbb',
+                    cursor:'text',
+                    fontSize:'12px'
+                },
+                hideCss:false, //className and css how to take effect,true just className take effect
+                hideStyle:'value', //enum:value,focus;hide placeholder when focus or value exists,focus is of no effect when placeholder is 'placeholder'
+                className:''//placeholder text dom className
+            }, obj);
+            supported = param.placeholder in document.createElement('input');
             if (!supported) {
                 this.each(function () {
                     var $this = $(this);
@@ -72,7 +72,7 @@ if (!!window.jQuery) {
                     }
                 });
             }
-            supported = html = placeholder = param = null;
+            supported = html = placeholder = param = undefined;
             return this;
         }
     }(window.jQuery))
