@@ -476,9 +476,7 @@
 
             try {
                 // Not own constructor property must be Object
-                if (obj.constructor &&
-                    !core_hasOwn.call(obj, "constructor") &&
-                    !core_hasOwn.call(obj.constructor.prototype, "isPrototypeOf")) {
+                if (obj.constructor && !core_hasOwn.call(obj, "constructor") && !core_hasOwn.call(obj.constructor.prototype, "isPrototypeOf")) {
                     return false;
                 }
             } catch (e) {
@@ -1508,8 +1506,7 @@
                 marginDiv.style.marginRight = marginDiv.style.width = "0";
                 div.style.width = "1px";
 
-                support.reliableMarginRight =
-                    !parseFloat(( window.getComputedStyle(marginDiv, null) || {} ).marginRight);
+                support.reliableMarginRight = !parseFloat(( window.getComputedStyle(marginDiv, null) || {} ).marginRight);
             }
 
             if (typeof div.style.zoom !== core_strundefined) {
@@ -3003,8 +3000,7 @@
             // If nobody prevented the default action, do it now
             if (!onlyHandlers && !event.isDefaultPrevented()) {
 
-                if ((!special._default || special._default.apply(elem.ownerDocument, data) === false) &&
-                    !(type === "click" && jQuery.nodeName(elem, "a")) && jQuery.acceptData(elem)) {
+                if ((!special._default || special._default.apply(elem.ownerDocument, data) === false) && !(type === "click" && jQuery.nodeName(elem, "a")) && jQuery.acceptData(elem)) {
 
                     // Call a native DOM method on the target with the same name name as the event.
                     // Can't use an .isFunction() check here because IE6/7 fails that test.
@@ -6061,8 +6057,7 @@
                 // See if we can take a shortcut and just use innerHTML
                 if (typeof value === "string" && !rnoInnerhtml.test(value) &&
                     ( jQuery.support.htmlSerialize || !rnoshimcache.test(value)  ) &&
-                    ( jQuery.support.leadingWhitespace || !rleadingWhitespace.test(value) ) &&
-                    !wrapMap[ ( rtagName.exec(value) || ["", ""] )[1].toLowerCase() ]) {
+                    ( jQuery.support.leadingWhitespace || !rleadingWhitespace.test(value) ) && !wrapMap[ ( rtagName.exec(value) || ["", ""] )[1].toLowerCase() ]) {
 
                     value = value.replace(rxhtmlTag, "<$1></$2>");
 
@@ -6183,8 +6178,7 @@
                         // Evaluate executable scripts on first document insertion
                         for (i = 0; i < hasScripts; i++) {
                             node = scripts[ i ];
-                            if (rscriptType.test(node.type || "") &&
-                                !jQuery._data(node, "globalEval") && jQuery.contains(doc, node)) {
+                            if (rscriptType.test(node.type || "") && !jQuery._data(node, "globalEval") && jQuery.contains(doc, node)) {
 
                                 if (node.src) {
                                     // Hope ajax is available...
