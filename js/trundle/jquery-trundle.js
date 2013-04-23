@@ -21,6 +21,7 @@ if (!!window.jQuery) {
             this.param = param;
         }
 
+        ;
         TRUNDLE.prototype.scroll = function () {
             var _this = this;
             this.$el.animate({
@@ -30,24 +31,24 @@ if (!!window.jQuery) {
                 _this.scroll();
             }, this.param.time);
             return this;
-        }
+        };
         TRUNDLE.prototype.ready = function () {
             return true;
-        }
+        };
         TRUNDLE.prototype.start = function () {
             return this.ready() && this.scroll();
-        }
+        };
         TRUNDLE.prototype.pause = function () {
             return this;
-        }
+        };
         TRUNDLE.prototype.continue = function () {
             return this;
-        }
+        };
         TRUNDLE.prototype.scrollStep = function () {
             this.index += this.param.scroll;
             this.index %= this.length;
             return (this.index / this.param.scroll) * parseInt(this.param.height)
-        }
+        };
         $.fn.trundle = function (obj) {
             var param = $.extend(true, {
                 scroll:1,
