@@ -14,18 +14,17 @@
  */
 if (!!window.jQuery) {
     (function ($, undefined) {
-        function TRUNDLE($el, param) {
-            this.$el = $el;
-            this.length = $el.children().length;
+        function TRUNDLE(el, param) {
+            this.$el = el;
+            this.length = el.children().length;
             this.index = 0;
             this.param = param;
         }
 
         TRUNDLE.prototype.scroll = function () {
             var _this = this;
-            var scrollTop = this.scrollTop();
             this.$el.animate({
-                scrollTop:scrollTop
+                scrollTop:_this.scrollStep()
             }, 500);
             this.timer = setTimeout(function () {
                 _this.scroll();
@@ -44,7 +43,7 @@ if (!!window.jQuery) {
         TRUNDLE.prototype.continue = function () {
             return this;
         }
-        TRUNDLE.prototype.scrollTop = function () {
+        TRUNDLE.prototype.scrollStep = function () {
             this.index += this.param.scroll;
             this.index %= this.length;
             return (this.index / this.param.scroll) * parseInt(this.param.height)
