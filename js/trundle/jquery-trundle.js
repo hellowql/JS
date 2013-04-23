@@ -21,7 +21,6 @@ if (!!window.jQuery) {
             this.param = param;
         }
 
-        ;
         TRUNDLE.prototype.scroll = function () {
             var _this = this;
             this.$el.animate({
