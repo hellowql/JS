@@ -29,11 +29,11 @@
 <table>
     <tr>
         <td>姓名</td>
-        <td><input name="name" value="wuqinglong" placeholder="请输入姓名"/></td>
+        <td><input name="name" value="wuqinglong" placeholder1="请输入姓名"/></td>
     </tr>
     <tr>
         <td>性别</td>
-        <td><input name="gender" placeholder="请输入性别"/></td>
+        <td><input name="gender" placeholder1="请输入性别"/></td>
     </tr>
     <tr>
         <td>年龄</td>
@@ -45,23 +45,27 @@
     </tr>
     <tr>
         <td>其他</td>
-        <td><textarea name="other" placeholder="请输入其他信息"></textarea></td>
+        <td><textarea name="other" placeholder1="请输入其他信息"></textarea></td>
     </tr>
 </table>
 </body>
 <script type="text/javascript" src="../js/jquery-1.9.1.js" charset="utf-8"></script>
 <script type="text/javascript" src="../js/placeholder/jquery-placeholder.js" charset="utf-8"></script>
 <script type="text/javascript">
-    $('input:lt(2),textarea').placeholder({
-        placeholder:'placeholder'
-    });
-    $('input:gt(1)').placeholder({
+    $(':input').placeholder({
         placeholder:'placeholder1',
-        css:{
-            //top:'17px'
-        }
+        hideStyle:'focus'
     });
     /*
+     $('input:lt(2),textarea').placeholder({
+     placeholder:'placeholder1'
+     });
+     $('input:gt(1)').placeholder({
+     placeholder:'placeholder1',
+     css:{
+     //top:'17px'
+     }
+     });
      $(':input:lt(2)').placeholder({
      placeholder:'placeholder'
      });
