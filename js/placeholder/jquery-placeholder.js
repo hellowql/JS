@@ -1,12 +1,16 @@
 /**
+ * jQuery placeholder Plugin Just be good for not support placeholder
+ * requires jQuery 1.4 or later
+ *
+ * Released under the MIT license
+ * http://jquery.org/license
+ *
  * Created with JetBrains WebStorm.
  * User: wuqinglong
+ * mail: hellowql@126.com
  * Date: 13-4-16
  * Time: 下午12:42
  * Version: 0.1
- *
- *  Just be good for not support placeholder
- *  need jQuery 1.4 or height
  */
 if (!!window.jQuery) {
     (function ($, undefined) {
@@ -60,7 +64,7 @@ if (!!window.jQuery) {
                                         $(this).prev().css('display', 'inline');
                                     }
                                 }).triggerHandler('blur.placeholder');
-                            break
+                            break;
                         default :
                             $this.bind('keyup.placeholder blur.placeholder',function () {
                                 if (this.value.length > 0) {
