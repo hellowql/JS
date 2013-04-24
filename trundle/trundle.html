@@ -52,18 +52,18 @@
         }
 
         #ul3 {
-            width: 114px;
+            width: 500px;
             height: 20px;
             overflow: hidden;
             margin: 0 auto;
-            border: 1px solid #8a2be2;
+            /*border: 1px solid #8a2be2;*/
             list-style: none;
         }
 
         #ul3 li {
             float: left;
             height: 20px;
-            width: 55px;
+            /*width: 55px;*/
             list-style: none;
             padding: 0;
             margin: 0;
@@ -107,14 +107,16 @@
         <li>11111111</li>
     </ul>
     <hr>
-    <ul id="ul3">
-        <li>11111111</li>
-        <li>22222222</li>
-        <li>33333333</li>
-        <li>44444444</li>
-        <li>55555555</li>
-        <li>66666666</li>
-    </ul>
+    <div style="width:128px;overflow: hidden">
+        <ul id="ul3">
+            <li>11111111</li>
+            <li>22222222</li>
+            <li>33333333</li>
+            <li>44444444</li>
+            <li>55555555</li>
+            <li>66666666</li>
+        </ul>
+    </div>
     <hr>
     <ul id="ul4">
         <li>66666666</li>
@@ -128,10 +130,10 @@
 <script type="text/javascript" src="../js/jquery-1.9.1.js" charset="utf-8"></script>
 <script type="text/javascript" src="../js/trundle/jquery-trundle.js" charset="utf-8"></script>
 <script type="text/javascript">
-    $("#ul1").trundle();
-    $("#ul2").trundle({direct:2});
-    $("#ul3").trundle({direct:4});
-    $("#ul4").trundle({direct:3});
+    //    $("#ul1").trundle();
+    //    $("#ul2").trundle({direct:2});
+    //    $("#ul3").trundle({direct:4});
+    //    $("#ul4").trundle({direct:3});
 </script>
 </body>
 </html>
