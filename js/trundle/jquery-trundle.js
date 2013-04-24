@@ -15,24 +15,30 @@
 if (!!window.jQuery) {
     (function ($, undefined) {
         var tool = {
-            height:function ($el) {
+            height:function ($el, type) {
                 var height = 0;
-                $.each($el, function () {
-                    height += $(this).outerHeight();
-                })
+                if (type == 0 || type == 2) {
+                    $.each($el, function () {
+                        height += $(this).outerHeight();
+                    })
+                } else {
+                    $.each($el, function () {
+                        height += $(this).outerWidth();
+                    })
+                }
                 return height;
             },
-            min:function ($el) {
+            min:function ($el, type) {
                 return Math.min.apply(null, $.map($el, function (n) {
-                    return $(n).outerHeight();
+                    return (type == 0 || type == 2) ? $(n).outerHeight() : $(n).outerWidth();
                 }));
             },
-            getCloneEl:function (height, $els, type) {
+            getCloneEl:function (height, $els, type, direct) {
                 var len = 1, $slice;
                 if (type == 0) {
                     while (true) {
                         $slice = $els.slice(0, len);
-                        if (tool.height($slice) / height >= 1) {
+                        if (tool.height($slice, direct) / height >= 1) {
                             break;
                         }
                         len++;
@@ -40,7 +46,7 @@ if (!!window.jQuery) {
                 } else {
                     while (true) {
                         $slice = $els.slice(-len);
-                        if (tool.height($slice) / height >= 1) {
+                        if (tool.height($slice, direct) / height >= 1) {
                             break;
                         }
                         len++;
@@ -59,7 +65,7 @@ if (!!window.jQuery) {
             return this.ready() && this.init() && this.scroll();
         };
         TRUNDLE.prototype.ready = function () {
-            return this.$el.children().length > this.param.scroll || tool.height(this.$el.children()) > this.param.distance;
+            return this.$el.children().length > this.param.scroll;// || tool.height(this.$el.children()) > this.param.distance;
         };
         TRUNDLE.prototype.pause = function () {
             clearTimeout(this.timer);
@@ -71,21 +77,23 @@ if (!!window.jQuery) {
             var _this = this;
             var time = this.pausetime - this.lasttime;
             if (!isNaN(time) && time > 0) {
-                if (this.$el.prop('scrollTop') != this.scrollTo) {
-                    switch (this.param.direct) {
-                        case 0:
-                        case 2:
+                switch (this.param.direct) {
+                    case 0:
+                    case 2:
+                        if (this.$el.prop('scrollTop') != this.scrollTo) {
                             this.$el.animate({
                                 scrollTop:_this.scrollTo
                             }, time);
-                            break;
-                        case 1:
-                        case 4:
+                        }
+                        break;
+                    case 1:
+                    case 3:
+                        if (this.$el.prop('scrollLeft') != this.scrollTo) {
                             this.$el.animate({
                                 scrollLeft:_this.scrollTo
                             }, time);
-                            break;
-                    }
+                        }
+                        break;
                 }
                 this.scroll();
             }
@@ -94,14 +102,12 @@ if (!!window.jQuery) {
         TRUNDLE.prototype.scrollStep = function () {
             switch (this.param.direct) {
                 case 0:// up
+                case 3:// left
                     this.scrollTo += this.fixedDistance;
                     break;
-                case 1:// right
-                    break;
                 case 2:// down
+                case 1:// right
                     this.scrollTo -= this.fixedDistance;
-                    break;
-                case 3:// left
                     break;
             }
             return this.scrollTo;
@@ -119,6 +125,13 @@ if (!!window.jQuery) {
                     }
                     break;
                 case 1:// right
+                    var pass = this.scrollTo - this.gap[0];
+                    if (pass < 0) {// 是否滚动完所有原始数据
+                        this.scrollTo = pass + this.gap[1];
+                        this.$el.animate({
+                            scrollLeft:_this.scrollTo
+                        }, 0);
+                    }
                     break;
                 case 2:// down
                     var pass = this.scrollTo - this.gap[0];
@@ -130,6 +143,13 @@ if (!!window.jQuery) {
                     }
                     break;
                 case 3:// left
+                    var pass = this.scrollTo + this.fixedDistance - this.gap[1];
+                    if (pass > 0) {// 是否滚动完所有原始数据
+                        this.scrollTo = pass;
+                        this.$el.animate({
+                            scrollLeft:_this.scrollTo
+                        }, 0);
+                    }
                     break;
             }
             if (goAtOnce) {
@@ -150,19 +170,19 @@ if (!!window.jQuery) {
             this.fixedScroll = this.param.scroll;
             this.fixedDistance = parseInt(this.param.distance);
             if (isNaN(this.fixedDistance) && this.fixedScroll > 0) {
-                this.fixedDistance = tool.min(this.$children) * this.fixedScroll;
+                this.fixedDistance = tool.min(this.$children, this.param.direct) * this.fixedScroll;
             }
             if (this.fixedDistance > 0) {
-                this.fixedScroll = Math.round(this.fixedDistance / tool.min(this.$children));
+                this.fixedScroll = Math.round(this.fixedDistance / tool.min(this.$children, this.param.direct));
             }
             this.scrollTo = this.fixedDistance;
             this.$el
-                .prepend(tool.getCloneEl(this.fixedDistance, this.$children, 1))
-                .append(tool.getCloneEl(this.fixedDistance, this.$children, 0))
+                .prepend(tool.getCloneEl(this.fixedDistance, this.$children, 1, this.param.direct))
+                .append(tool.getCloneEl(this.fixedDistance, this.$children, 0, this.param.direct))
                 .animate({scrollTop:_this.scrollTo}, 0);
             this.gap = [];
             this.gap[0] = this.fixedDistance;
-            this.gap[1] = tool.height(this.$children) + this.gap[0];
+            this.gap[1] = tool.height(this.$children, this.param.direct) + this.gap[0];
             this.gap[2] = this.fixedDistance + this.gap[1];
             this.$el.hover(function () {
                 _this.pause();
