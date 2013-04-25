@@ -65,7 +65,7 @@ if (!!window.jQuery) {
             return this.ready() && this.init() && this.scroll();
         };
         TRUNDLE.prototype.ready = function () {
-            return this.$el.children().length > this.param.scroll;// || tool.height(this.$el.children()) > this.param.distance;
+            return this.$el.find(this.param.visibleEls).length > this.param.scroll;// || tool.height(this.$el.find(this.param.visibleEls)) > this.param.distance;
         };
         TRUNDLE.prototype.pause = function () {
             clearTimeout(this.timer);
@@ -153,9 +153,20 @@ if (!!window.jQuery) {
                     break;
             }
             if (goAtOnce) {
-                this.$el.animate({
-                    scrollTop:_this.scrollStep()
-                }, 500);
+                switch (this.param.direct) {
+                    case 0:
+                    case 2:
+                        this.$el.animate({
+                            scrollTop:_this.scrollStep()
+                        }, 500);
+                        break;
+                    case 1:
+                    case 3:
+                        this.$el.animate({
+                            scrollLeft:_this.scrollStep()
+                        }, 500);
+                        break;
+                }
             }
             this.lasttime = new Date().getTime();
             this.timer = setTimeout(function () {
@@ -165,7 +176,7 @@ if (!!window.jQuery) {
         };
         TRUNDLE.prototype.init = function () {
             var _this = this;
-            this.$children = this.$el.children();
+            this.$children = this.$el.find(this.param.visibleEls);
             this.childlenth = this.$children.length;
             this.fixedScroll = this.param.scroll;
             this.fixedDistance = parseInt(this.param.distance);
@@ -176,10 +187,19 @@ if (!!window.jQuery) {
                 this.fixedScroll = Math.round(this.fixedDistance / tool.min(this.$children, this.param.direct));
             }
             this.scrollTo = this.fixedDistance;
-            this.$el
+            this.$el.find(this.param.visibleEls).eq(0).parent()
                 .prepend(tool.getCloneEl(this.fixedDistance, this.$children, 1, this.param.direct))
-                .append(tool.getCloneEl(this.fixedDistance, this.$children, 0, this.param.direct))
-                .animate({scrollTop:_this.scrollTo}, 0);
+                .append(tool.getCloneEl(this.fixedDistance, this.$children, 0, this.param.direct));
+            switch (this.param.direct) {
+                case 0:
+                case 2:
+                    this.$el.animate({scrollTop:_this.scrollTo}, 0);
+                    break;
+                case 1:
+                case 3:
+                    this.$el.animate({scrollLeft:_this.scrollTo}, 0);
+                    break;
+            }
             this.gap = [];
             this.gap[0] = this.fixedDistance;
             this.gap[1] = tool.height(this.$children, this.param.direct) + this.gap[0];
@@ -196,6 +216,7 @@ if (!!window.jQuery) {
                 scroll:2,
                 //distance:32,
                 time:3000,
+                visibleEls:'li',
                 direct:0// 方向，上:0,右:1,下:2,左:3
             }, obj);
             return this.each(function () {

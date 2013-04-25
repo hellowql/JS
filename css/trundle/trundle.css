@@ -1,0 +1,108 @@
+/**
+ * Created with JetBrains WebStorm.
+ * User: wuqinglong
+ * mail: hellowql@126.com
+ * Date: 13-4-25
+ * Time: 下午12:46
+ * Version: 0.1
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    width: 500px;
+    margin: 50px auto;
+    border: 1px solid #9acd32;
+    background-color: #dcdcdc;
+}
+
+#ul1 {
+    width: 50px;
+    height: 32px;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 1px solid #8a2be2;
+    list-style: none;
+}
+
+#ul1 li {
+    width: 50px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#ul2 {
+    width: 50px;
+    height: 44px;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 1px solid #8a2be2;
+    list-style: none;
+}
+
+#ul2 li {
+    height: 20px;
+    width: 50px;
+    border: 1px solid #ffa07a;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#ul3 {
+    width: 112px;
+    height: 20px;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 1px solid #8a2be2;
+    list-style: none;
+}
+
+#ul3 ul {
+    width: 600px;
+    height: 20px;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 1px solid #8a2be2;
+    list-style: none;
+}
+
+#ul3 li {
+    float: left;
+    height: 20px;
+    width: 55px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#ul4 {
+    width: 112px;
+    height: 20px;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 1px solid #8a2be2;
+    list-style: none;
+}
+
+#ul4 ul {
+    width: 600px;
+    height: 20px;
+    overflow: hidden;
+    margin: 0 auto;
+    border: 1px solid #8a2be2;
+    list-style: none;
+}
+
+#ul4 li {
+    height: 20px;
+    float: left;
+    width: 55px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}

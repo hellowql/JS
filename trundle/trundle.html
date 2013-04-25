@@ -4,98 +4,7 @@
 <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <title></title>
-    <style type="text/css">
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        div {
-            width: 500px;
-            margin: 50px auto;
-            border: 1px solid #9acd32;
-            background-color: #dcdcdc;
-        }
-
-        #ul1 {
-            width: 50px;
-            height: 32px;
-            overflow: hidden;
-            margin: 0 auto;
-            border: 1px solid #8a2be2;
-            list-style: none;
-        }
-
-        #ul1 li {
-            width: 50px;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #ul2 {
-            width: 50px;
-            height: 44px;
-            overflow: hidden;
-            margin: 0 auto;
-            border: 1px solid #8a2be2;
-            list-style: none;
-        }
-
-        #ul2 li {
-            height: 20px;
-            width: 50px;
-            border: 1px solid #ffa07a;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #ul3 {
-            width: 114px;
-            height: 20px;
-            overflow: hidden;
-            margin: 0 auto;
-            border: 1px solid #8a2be2;
-            list-style: none;
-        }
-
-        #ul3 ul {
-            width: 600px;
-            height: 20px;
-            overflow: hidden;
-            margin: 0 auto;
-            border: 1px solid #8a2be2;
-            list-style: none;
-        }
-
-        #ul3 li {
-            float: left;
-            height: 20px;
-            width: 55px;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        #ul4 {
-            width: 114px;
-            height: 20px;
-            overflow: hidden;
-            margin: 0 auto;
-            border: 1px solid #8a2be2;
-            list-style: none;
-        }
-
-        #ul4 li {
-            height: 20px;
-            float: left;
-            width: 55px;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/trundle/trundle.css">
 </head>
 <body>
 <div>
@@ -116,8 +25,8 @@
         <li>11111111</li>
     </ul>
     <hr>
-    <div style="width:128px;overflow: hidden">
-        <ul id="ul3">
+    <div id="ul3">
+        <ul>
             <li>11111111</li>
             <li>22222222</li>
             <li>33333333</li>
@@ -127,22 +36,24 @@
         </ul>
     </div>
     <hr>
-    <ul id="ul4">
-        <li>66666666</li>
-        <li>55555555</li>
-        <li>44444444</li>
-        <li>33333333</li>
-        <li>22222222</li>
-        <li>11111111</li>
-    </ul>
+    <div id="ul4">
+        <ul>
+            <li>66666666</li>
+            <li>55555555</li>
+            <li>44444444</li>
+            <li>33333333</li>
+            <li>22222222</li>
+            <li>11111111</li>
+        </ul>
+    </div>
 </div>
 <script type="text/javascript" src="../js/jquery-1.9.1.js" charset="utf-8"></script>
 <script type="text/javascript" src="../js/trundle/jquery-trundle.js" charset="utf-8"></script>
 <script type="text/javascript">
-    //    $("#ul1").trundle();
-    //    $("#ul2").trundle({direct:2});
-    //    $("#ul3").trundle({direct:4});
-    //    $("#ul4").trundle({direct:3});
+    $("#ul1").trundle();
+    $("#ul2").trundle({direct:2});
+    $("#ul3").trundle({direct:3});
+    $("#ul4").trundle({direct:1});
 </script>
 </body>
 </html>
