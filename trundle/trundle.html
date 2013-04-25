@@ -7,53 +7,55 @@
     <link rel="stylesheet" href="../css/trundle/trundle.css">
 </head>
 <body>
-<div>
-    <ul id="ul1">
-        <li>11111111 11111111</li>
-        <li>22222222</li>
-        <li>33333333</li>
-        <li>44444444</li>
-        <li>55555555</li>
-    </ul>
-    <hr>
-    <ul id="ul2">
-        <li>66666666</li>
-        <li>55555555</li>
-        <li>44444444</li>
-        <li>33333333</li>
-        <li>22222222</li>
-        <li>11111111</li>
-    </ul>
-    <hr>
-    <div id="ul3">
-        <ul>
-            <li>11111111</li>
+<div id="main">
+    <div>
+        <span id="span1"><ul>
+            <li>11111111 11111111</li>
             <li>22222222</li>
             <li>33333333</li>
             <li>44444444</li>
             <li>55555555</li>
-            <li>66666666</li>
-        </ul>
+        </ul></span>
     </div>
-    <hr>
-    <div id="ul4">
-        <ul>
+    <div>
+        <span id="span2"><ul>
             <li>66666666</li>
             <li>55555555</li>
             <li>44444444</li>
             <li>33333333</li>
             <li>22222222</li>
             <li>11111111</li>
-        </ul>
+        </ul></span></div>
+    <div>
+        <span id="span3">
+            <ul>
+                <li>11111111</li>
+                <li>22222222</li>
+                <li>33333333</li>
+                <li>44444444</li>
+                <li>55555555</li>
+                <li>66666666</li>
+            </ul>
+        </span>
+    </div>
+    <div>
+        <span id="span4"><ul>
+            <li>66666666</li>
+            <li>55555555</li>
+            <li>44444444</li>
+            <li>33333333</li>
+            <li>22222222</li>
+            <li>11111111</li>
+        </ul></span>
     </div>
 </div>
 <script type="text/javascript" src="../js/jquery-1.9.1.js" charset="utf-8"></script>
 <script type="text/javascript" src="../js/trundle/jquery-trundle.js" charset="utf-8"></script>
 <script type="text/javascript">
-    $("#ul1").trundle();
-    $("#ul2").trundle({direct:2});
-    $("#ul3").trundle({direct:3});
-    $("#ul4").trundle({direct:1});
+    $("#div1").trundle();
+    $("#div2").trundle({direct:2});
+    $("#div3").trundle({direct:3});
+    $("#div4").trundle({direct:1});
 </script>
 </body>
 </html>
