@@ -14,6 +14,9 @@
  */
 if (!!window.jQuery) {
     (function ($, undefined) {
+        if ($.fn.placeholder) {
+            return;
+        }
         $.fn.placeholder = function (obj) {
             var html, placeholder, param, supported;
             param = $.extend(true, {
@@ -34,6 +37,9 @@ if (!!window.jQuery) {
             if (!supported) {
                 this.each(function () {
                     var $this = $(this);
+                    if ($this.data('__placeholder__') === true) {// placeholder-ed el never do again
+                        return;
+                    }
                     html = $('<label></label>');
                     placeholder = $this.attr(param.placeholder);
                     if (placeholder != undefined) {
@@ -75,6 +81,7 @@ if (!!window.jQuery) {
                             }).triggerHandler('blur.placeholder');
                     }
                 });
+                $this.data('__placeholder__', true);// mark this el placeholder-ed
             }
             supported = html = placeholder = param = undefined;
             return this;
