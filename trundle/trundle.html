@@ -10,20 +10,6 @@
             padding: 0;
         }
 
-        .fix {
-            clear: both;
-            zoom: 1;
-        }
-
-        .fix:after {
-            display: block;
-            clear: both;
-            height: 0;
-            overflow: hidden;
-            visibility: hidden;
-            content: ".";
-        }
-
         div {
             width: 500px;
             margin: 50px auto;
@@ -130,8 +116,8 @@
         <li>11111111</li>
     </ul>
     <hr>
-    <div id="ul3">
-        <ul>
+    <div style="width:128px;overflow: hidden">
+        <ul id="ul3">
             <li>11111111</li>
             <li>22222222</li>
             <li>33333333</li>
@@ -153,10 +139,10 @@
 <script type="text/javascript" src="../js/jquery-1.9.1.js" charset="utf-8"></script>
 <script type="text/javascript" src="../js/trundle/jquery-trundle.js" charset="utf-8"></script>
 <script type="text/javascript">
-    $("#ul1").trundle();
+    //    $("#ul1").trundle();
     //    $("#ul2").trundle({direct:2});
-    $("#ul3 ul").trundle({direct:3});
-    //    $("#ul4").trundle({direct:1});
+    //    $("#ul3").trundle({direct:4});
+    //    $("#ul4").trundle({direct:3});
 </script>
 </body>
 </html>
