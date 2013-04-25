@@ -37,14 +37,12 @@ if (!!window.jQuery) {
             if (!supported) {
                 this.each(function () {
                     var $this = $(this);
-                    if ($this.data('__placeholder__') === true) {// placeholder-ed el never do again
+                    placeholder = $this.attr(param.placeholder);
+                    if ($this.data('__placeholder__') === true || placeholder == undefined) {// placeholder-ed el never do again
                         return;
                     }
                     html = $('<label></label>');
-                    placeholder = $this.attr(param.placeholder);
-                    if (placeholder != undefined) {
-                        html.text(placeholder);
-                    }
+                    html.text(placeholder);
                     if (!param.hideCss) {
                         html.css(param.css);
                     }
