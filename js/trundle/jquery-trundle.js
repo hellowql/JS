@@ -65,7 +65,7 @@ if (!!window.jQuery) {
             return this.ready() && this.init() && this.scroll();
         };
         TRUNDLE.prototype.ready = function () {
-            return this.$el.find(this.param.visibleEls).length > this.param.scroll;// || tool.height(this.$el.find(this.param.visibleEls)) > this.param.distance;
+            return (this.param.scroll && (this.$el.find(this.param.visibleEls).length > this.param.scroll) || (this.param.distance && (tool.height(this.$el.find(this.param.visibleEls), this.param.direct) > this.param.distance)));
         };
         TRUNDLE.prototype.pause = function () {
             clearTimeout(this.timer);
@@ -217,7 +217,7 @@ if (!!window.jQuery) {
                 //distance:32,
                 time:3000,
                 visibleEls:'li',
-                direct:0// 方向，上:0,右:1,下:2,左:3
+                direct:0// scroll direction，up:0,right:1,down:2,left:3
             }, obj);
             return this.each(function () {
                 new TRUNDLE($(this), param).start();
