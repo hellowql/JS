@@ -78,8 +78,8 @@ if (!!window.jQuery) {
                                 }
                             }).triggerHandler('blur.placeholder');
                     }
+                    $this.data('__placeholder__', true);// mark this el placeholder
                 });
-                $this.data('__placeholder__', true);// mark this el placeholder-ed
             }
             supported = html = placeholder = param = undefined;
             return this;

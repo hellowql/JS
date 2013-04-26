@@ -73,7 +73,7 @@ if (!!window.jQuery) {
             this.pausetime = new Date().getTime();
             return this;
         };
-        TRUNDLE.prototype.continue = function () {
+        TRUNDLE.prototype.goon = function () {
             var _this = this;
             var time = this.pausetime - this.lasttime;
             if (!isNaN(time) && time > 0) {
@@ -207,7 +207,7 @@ if (!!window.jQuery) {
             this.$el.hover(function () {
                 _this.pause();
             }, function () {
-                _this.continue();
+                _this.goon();
             })
             return this;
         };
