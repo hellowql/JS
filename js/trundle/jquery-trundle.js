@@ -16,22 +16,16 @@ if (!!window.jQuery) {
     (function ($, undefined) {
         var tool = {
             outline:function ($el, type) {
-                var outline = 0, flag = type.toLowerCase() == 'up' || type.toLowerCase() == 'down';
-                if (flag) {
-                    $.each($el, function () {
-                        outline += $(this).outerHeight();
-                    })
-                } else {
-                    $.each($el, function () {
-                        outline += $(this).outerWidth();
-                    })
-                }
+                var outline = 0, fn = this._getFn(type);
+                $.each($el, function () {
+                    outline += $(this)[fn]();
+                })
                 return outline;
             },
             min:function ($el, type) {
-                var flag = type.toLowerCase() == 'up' || type.toLowerCase() == 'down';
+                var fn = this._getFn(type);
                 return Math.min.apply(null, $.map($el, function (n) {
-                    return flag ? $(n).outerHeight() : $(n).outerWidth();
+                    return $(n)[fn]();
                 }));
             },
             getCloneEl:function (outline, $els, type, direct) {
@@ -48,6 +42,10 @@ if (!!window.jQuery) {
                     len++;
                 }
                 return $slice.clone().addClass('cloned');
+            },
+            _getFn:function (type) {
+                return (type.toLowerCase() == 'up' || type.toLowerCase() == 'down')
+                    ? 'outerHeight' : 'outerWidth';
             }
         };
 
@@ -172,7 +170,6 @@ if (!!window.jQuery) {
         TRUNDLE.prototype.init = function () {
             var _this = this;
             this.$children = this.$el.find(this.param.visibleEls);
-            this.childlenth = this.$children.length;
             this.fixedScroll = this.param.scroll;
             this.fixedDistance = parseInt(this.param.distance);
             if (isNaN(this.fixedDistance) && this.fixedScroll > 0) {
@@ -230,7 +227,7 @@ if (!!window.jQuery) {
                 visibleEls:'li',
                 direct:'up', // scroll direction enum: up,right,down,left
                 hoverpause:true// over is need pause
-                //                over:function(pause){//
+                //                over:function(pause){
                 //                    pause();
                 //                },
                 //                out:function(purse){
