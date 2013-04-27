@@ -5,7 +5,6 @@
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Created with JetBrains WebStorm.
  * User: wuqinglong
  * mail: hellowql@126.com
  * Date: 13-4-23
@@ -15,20 +14,20 @@
 if (!!window.jQuery) {
     (function ($, undefined) {
         var tool = {
-            outline:function ($el, type) {
+            outline: function ($el, type) {
                 var outline = 0, fn = this._getFn(type);
                 $.each($el, function () {
                     outline += $(this)[fn]();
                 })
                 return outline;
             },
-            min:function ($el, type) {
+            min: function ($el, type) {
                 var fn = this._getFn(type);
                 return Math.min.apply(null, $.map($el, function (n) {
                     return $(n)[fn]();
                 }));
             },
-            getCloneEl:function (outline, $els, type, direct) {
+            getCloneEl: function (outline, $els, type, direct) {
                 var len = 1, $slice;
                 while (true) {
                     if (type == 'top') {
@@ -43,7 +42,7 @@ if (!!window.jQuery) {
                 }
                 return $slice.clone().addClass('cloned');
             },
-            _getFn:function (type) {
+            _getFn: function (type) {
                 return (type.toLowerCase() == 'up' || type.toLowerCase() == 'down')
                     ? 'outerHeight' : 'outerWidth';
             }
@@ -77,11 +76,11 @@ if (!!window.jQuery) {
                     default :
                     case 'up':
                     case 'down':
-                        obj = { scrollTop:0 };
+                        obj = { scrollTop: 0 };
                         break;
                     case 'right':
                     case 'left':
-                        obj = { scrollLeft:0 };
+                        obj = { scrollLeft: 0 };
                         break;
                 }
                 for (key in obj);
@@ -116,7 +115,7 @@ if (!!window.jQuery) {
                     if (pass > 0) {// 是否滚动完所有原始数据
                         needfix = true;
                         this.scrollTo = pass;
-                        obj = {scrollTop:_this.scrollTo};
+                        obj = {scrollTop: _this.scrollTo};
                     }
                     break;
                 case 'right':// right
@@ -124,7 +123,7 @@ if (!!window.jQuery) {
                     if (pass < 0) {// 是否滚动完所有原始数据
                         needfix = true;
                         this.scrollTo = pass + this.gap[1];
-                        obj = {scrollLeft:_this.scrollTo};
+                        obj = {scrollLeft: _this.scrollTo};
                     }
                     break;
                 case 'down':// down
@@ -132,7 +131,7 @@ if (!!window.jQuery) {
                     if (pass < 0) {// 是否滚动完所有原始数据
                         needfix = true;
                         this.scrollTo = pass + this.gap[1];
-                        obj = {scrollTop:_this.scrollTo};
+                        obj = {scrollTop: _this.scrollTo};
                     }
                     break;
                 case 'left':// left
@@ -140,7 +139,7 @@ if (!!window.jQuery) {
                     if (pass > 0) {// 是否滚动完所有原始数据
                         needfix = true;
                         this.scrollTo = pass;
-                        obj = {scrollLeft:_this.scrollTo};
+                        obj = {scrollLeft: _this.scrollTo};
                     }
                     break;
             }
@@ -152,11 +151,11 @@ if (!!window.jQuery) {
                     default :
                     case 'up':
                     case 'down':
-                        obj = {scrollTop:_this.scrollStep()};
+                        obj = {scrollTop: _this.scrollStep()};
                         break;
                     case 'right':
                     case 'left':
-                        obj = {scrollLeft:_this.scrollStep()};
+                        obj = {scrollLeft: _this.scrollStep()};
                         break;
                 }
                 this.$el.animate(obj, this.param.animatetime);
@@ -186,11 +185,11 @@ if (!!window.jQuery) {
                 default :
                 case 'up':
                 case 'down':
-                    this.$el.animate({scrollTop:_this.scrollTo}, 0);
+                    this.$el.animate({scrollTop: _this.scrollTo}, 0);
                     break;
                 case 'right':
                 case 'left':
-                    this.$el.animate({scrollLeft:_this.scrollTo}, 0);
+                    this.$el.animate({scrollLeft: _this.scrollTo}, 0);
                     break;
             }
             this.gap = [];// store three length,0:prepend els outline,1:prepend+origin els outline,2:all els outline
@@ -220,13 +219,13 @@ if (!!window.jQuery) {
         };
         $.fn.trundle = function (obj) {
             var param = $.extend(true, {
-                scroll:2,
+                scroll: 2,
                 //distance:32,
-                time:3000,
-                animatetime:500,
-                visibleEls:'li',
-                direct:'up', // scroll direction enum: up,right,down,left
-                hoverpause:true// over is need pause
+                time: 3000,
+                animatetime: 500,
+                visibleEls: 'li',
+                direct: 'up', // scroll direction enum: up,right,down,left
+                hoverpause: true// over is need pause
                 //                over:function(pause){
                 //                    pause();
                 //                },

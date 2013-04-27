@@ -5,7 +5,6 @@
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Created with JetBrains WebStorm.
  * User: wuqinglong
  * mail: hellowql@126.com
  * Date: 13-4-16
@@ -20,18 +19,18 @@ if (!!window.jQuery) {
         $.fn.placeholder = function (obj) {
             var html, placeholder, param, supported;
             param = $.extend(true, {
-                placeholder:'placeholder', //placeholder attribute,default will use explorer original function
-                css:{// placeholder text dom css
-                    position:'absolute',
-                    top:'5px',
-                    left:'4px',
-                    color:'#bbb',
-                    cursor:'text',
-                    fontSize:'12px'
+                placeholder: 'placeholder', //placeholder attribute,default will use explorer original function
+                css: {// placeholder text dom css
+                    position: 'absolute',
+                    top: '5px',
+                    left: '4px',
+                    color: '#bbb',
+                    cursor: 'text',
+                    fontSize: '12px'
                 },
-                hideCss:false, //className and css how to take effect,true just className take effect
-                hideStyle:'value', //enum:value,focus;hide placeholder when focus or value exists,focus is of no effect when placeholder is 'placeholder'
-                className:''//placeholder text dom className
+                hideCss: false, //className and css how to take effect,true just className take effect
+                hideStyle: 'value', //enum:value,focus;hide placeholder when focus or value exists,focus is of no effect when placeholder is 'placeholder'
+                className: ''//placeholder text dom className
             }, obj);
             supported = param.placeholder in document.createElement('input');
             if (!supported) {
