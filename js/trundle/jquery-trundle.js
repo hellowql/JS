@@ -15,19 +15,18 @@
 if (!!window.jQuery) {
     (function ($, undefined) {
         var tool = {
-            height:function ($el, type) {
-                var height = 0, flag = type.toLowerCase() == 'up' || type.toLowerCase() == 'down';
-                ;
+            outline:function ($el, type) {
+                var outline = 0, flag = type.toLowerCase() == 'up' || type.toLowerCase() == 'down';
                 if (flag) {
                     $.each($el, function () {
-                        height += $(this).outerHeight();
+                        outline += $(this).outerHeight();
                     })
                 } else {
                     $.each($el, function () {
-                        height += $(this).outerWidth();
+                        outline += $(this).outerWidth();
                     })
                 }
-                return height;
+                return outline;
             },
             min:function ($el, type) {
                 var flag = type.toLowerCase() == 'up' || type.toLowerCase() == 'down';
@@ -35,24 +34,18 @@ if (!!window.jQuery) {
                     return flag ? $(n).outerHeight() : $(n).outerWidth();
                 }));
             },
-            getCloneEl:function (height, $els, type, direct) {
+            getCloneEl:function (outline, $els, type, direct) {
                 var len = 1, $slice;
-                if (type == 0) {
-                    while (true) {
+                while (true) {
+                    if (type == 'top') {
                         $slice = $els.slice(0, len);
-                        if (tool.height($slice, direct) / height >= 1) {
-                            break;
-                        }
-                        len++;
-                    }
-                } else {
-                    while (true) {
+                    } else {
                         $slice = $els.slice(-len);
-                        if (tool.height($slice, direct) / height >= 1) {
-                            break;
-                        }
-                        len++;
                     }
+                    if (tool.outline($slice, direct) / outline >= 1) {
+                        break;
+                    }
+                    len++;
                 }
                 return $slice.clone().addClass('cloned');
             }
@@ -67,7 +60,10 @@ if (!!window.jQuery) {
             return this.ready() && this.init() && this.scroll();
         };
         TRUNDLE.prototype.ready = function () {
-            return (this.param.scroll && (this.$el.find(this.param.visibleEls).length > this.param.scroll) || (this.param.distance && (tool.height(this.$el.find(this.param.visibleEls), this.param.direct) > this.param.distance)));
+            var scroll = this.param.scroll, distance = this.param.distance;
+            var scrollOk = scroll && (this.$el.find(this.param.visibleEls).length > scroll);
+            var distanceOk = distance && (tool.outline(this.$el.find(this.param.visibleEls), this.param.direct) > distance);
+            return scrollOk || distanceOk;
         };
         TRUNDLE.prototype.pause = function () {
             clearTimeout(this.timer);
@@ -76,27 +72,23 @@ if (!!window.jQuery) {
             return this;
         };
         TRUNDLE.prototype.pursue = function () {
-            var _this = this;
-            var time = this.pausetime - this.lasttime;
-            if (!isNaN(time) && time > 0) {
+            var _this = this, obj = {}, key, leavetime = this.pausetime - this.scrolltime;
+            if (!isNaN(leavetime) && leavetime > 0) {
                 switch (this.param.direct.toLowerCase()) {
                     default :
                     case 'up':
                     case 'down':
-                        if (this.$el.prop('scrollTop') != this.scrollTo) {
-                            this.$el.animate({
-                                scrollTop:_this.scrollTo
-                            }, time);
-                        }
+                        obj = { scrollTop:0 };
                         break;
                     case 'right':
                     case 'left':
-                        if (this.$el.prop('scrollLeft') != this.scrollTo) {
-                            this.$el.animate({
-                                scrollLeft:_this.scrollTo
-                            }, time);
-                        }
+                        obj = { scrollLeft:0 };
                         break;
+                }
+                for (key in obj);
+                if (this.$el.prop(key) != this.scrollTo) {
+                    obj[key] = _this.scrollTo;
+                    this.$el.animate(obj, leavetime);
                 }
                 this.scroll();
             }
@@ -117,64 +109,60 @@ if (!!window.jQuery) {
             return this.scrollTo;
         };
         TRUNDLE.prototype.scroll = function (goAtOnce) {
-            var _this = this;
+            var _this = this, obj = {}, needfix = false;
             switch (this.param.direct.toLowerCase()) {
                 default :
                 case 'up':// up
                     var pass = this.scrollTo + this.fixedDistance - this.gap[1];
                     if (pass > 0) {// 是否滚动完所有原始数据
+                        needfix = true;
                         this.scrollTo = pass;
-                        this.$el.animate({
-                            scrollTop:_this.scrollTo
-                        }, 0);
+                        obj = {scrollTop:_this.scrollTo};
                     }
                     break;
                 case 'right':// right
                     var pass = this.scrollTo - this.gap[0];
                     if (pass < 0) {// 是否滚动完所有原始数据
+                        needfix = true;
                         this.scrollTo = pass + this.gap[1];
-                        this.$el.animate({
-                            scrollLeft:_this.scrollTo
-                        }, 0);
+                        obj = {scrollLeft:_this.scrollTo};
                     }
                     break;
                 case 'down':// down
                     var pass = this.scrollTo - this.gap[0];
                     if (pass < 0) {// 是否滚动完所有原始数据
+                        needfix = true;
                         this.scrollTo = pass + this.gap[1];
-                        this.$el.animate({
-                            scrollTop:_this.scrollTo
-                        }, 0);
+                        obj = {scrollTop:_this.scrollTo};
                     }
                     break;
                 case 'left':// left
                     var pass = this.scrollTo + this.fixedDistance - this.gap[1];
                     if (pass > 0) {// 是否滚动完所有原始数据
+                        needfix = true;
                         this.scrollTo = pass;
-                        this.$el.animate({
-                            scrollLeft:_this.scrollTo
-                        }, 0);
+                        obj = {scrollLeft:_this.scrollTo};
                     }
                     break;
+            }
+            if (needfix) {
+                this.$el.animate(obj, 0);
             }
             if (goAtOnce) {
                 switch (this.param.direct.toLowerCase()) {
                     default :
                     case 'up':
                     case 'down':
-                        this.$el.animate({
-                            scrollTop:_this.scrollStep()
-                        }, 500);
+                        obj = {scrollTop:_this.scrollStep()};
                         break;
                     case 'right':
                     case 'left':
-                        this.$el.animate({
-                            scrollLeft:_this.scrollStep()
-                        }, 500);
+                        obj = {scrollLeft:_this.scrollStep()};
                         break;
                 }
+                this.$el.animate(obj, 500);
             }
-            this.lasttime = new Date().getTime();
+            this.scrolltime = new Date().getTime();
             this.timer = setTimeout(function () {
                 _this.scroll(true);
             }, this.param.time);
@@ -194,8 +182,8 @@ if (!!window.jQuery) {
             }
             this.scrollTo = this.fixedDistance;
             this.$el.find(this.param.visibleEls).eq(0).parent()
-                .prepend(tool.getCloneEl(this.fixedDistance, this.$children, 1, this.param.direct))
-                .append(tool.getCloneEl(this.fixedDistance, this.$children, 0, this.param.direct));
+                .prepend(tool.getCloneEl(this.fixedDistance, this.$children, 'bottom', this.param.direct))
+                .append(tool.getCloneEl(this.fixedDistance, this.$children, 'top', this.param.direct));
             switch (this.param.direct.toLowerCase()) {
                 default :
                 case 'up':
@@ -209,7 +197,7 @@ if (!!window.jQuery) {
             }
             this.gap = [];
             this.gap[0] = this.fixedDistance;
-            this.gap[1] = tool.height(this.$children, this.param.direct) + this.gap[0];
+            this.gap[1] = tool.outline(this.$children, this.param.direct) + this.gap[0];
             this.gap[2] = this.fixedDistance + this.gap[1];
             this.$el.hover(function () {
                 _this.pause();
