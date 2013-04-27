@@ -62,7 +62,8 @@ if (!!window.jQuery) {
         TRUNDLE.prototype.ready = function () {
             var scroll = this.param.scroll, distance = this.param.distance;
             var scrollOk = scroll && (this.$el.find(this.param.visibleEls).length > scroll);
-            var distanceOk = distance && (tool.outline(this.$el.find(this.param.visibleEls), this.param.direct) > distance);
+            var distanceOk = distance &&
+                (tool.outline(this.$el.find(this.param.visibleEls), this.param.direct) > distance);
             return scrollOk || distanceOk;
         };
         TRUNDLE.prototype.pause = function () {
@@ -108,7 +109,7 @@ if (!!window.jQuery) {
             }
             return this.scrollTo;
         };
-        TRUNDLE.prototype.scroll = function (goAtOnce) {
+        TRUNDLE.prototype.scroll = function (directly) {
             var _this = this, obj = {}, needfix = false;
             switch (this.param.direct.toLowerCase()) {
                 default :
@@ -148,7 +149,7 @@ if (!!window.jQuery) {
             if (needfix) {
                 this.$el.animate(obj, 0);
             }
-            if (goAtOnce) {
+            if (directly) {
                 switch (this.param.direct.toLowerCase()) {
                     default :
                     case 'up':
@@ -160,7 +161,7 @@ if (!!window.jQuery) {
                         obj = {scrollLeft:_this.scrollStep()};
                         break;
                 }
-                this.$el.animate(obj, 500);
+                this.$el.animate(obj, this.param.animatetime);
             }
             this.scrolltime = new Date().getTime();
             this.timer = setTimeout(function () {
@@ -195,15 +196,29 @@ if (!!window.jQuery) {
                     this.$el.animate({scrollLeft:_this.scrollTo}, 0);
                     break;
             }
-            this.gap = [];
+            this.gap = [];// store three length,0:prepend els outline,1:prepend+origin els outline,2:all els outline
             this.gap[0] = this.fixedDistance;
             this.gap[1] = tool.outline(this.$children, this.param.direct) + this.gap[0];
             this.gap[2] = this.fixedDistance + this.gap[1];
-            this.$el.hover(function () {
-                _this.pause();
-            }, function () {
-                _this.pursue();
-            })
+            if (this.param.hoverpause) {
+                this.$el.hover(function () {
+                    if ($.isFunction(_this.param.over)) {
+                        _this.param.over(function () {
+                            _this.pause();
+                        });
+                    } else {
+                        _this.pause();
+                    }
+                }, function () {
+                    if ($.isFunction(_this.param.out)) {
+                        _this.param.out(function () {
+                            _this.pursue();
+                        });
+                    } else {
+                        _this.pursue();
+                    }
+                })
+            }
             return this;
         };
         $.fn.trundle = function (obj) {
@@ -211,8 +226,16 @@ if (!!window.jQuery) {
                 scroll:2,
                 //distance:32,
                 time:3000,
+                animatetime:500,
                 visibleEls:'li',
-                direct:'up'// scroll direction enum: up,right,down,left
+                direct:'up', // scroll direction enum: up,right,down,left
+                hoverpause:true// over is need pause
+                //                over:function(pause){//
+                //                    pause();
+                //                },
+                //                out:function(purse){
+                //                    purse();
+                //                }
             }, obj);
             return this.each(function () {
                 new TRUNDLE($(this), param).start();
