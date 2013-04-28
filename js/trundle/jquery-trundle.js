@@ -151,35 +151,36 @@ if (!!window.jQuery) {
          */
         TRUNDLE.prototype.scroll = function (directly) {
             var _this = this, obj = {}, needfix = false;
+            // if displayed els contains cloned el, it will fix scrollTop/scrollLeft to top/left
             switch (this.param.direct.toLowerCase()) {
                 default :
-                case 'up':// up
+                case 'up':
                     var pass = this.scrollTo + this.fixedDistance - this.gap[1];
-                    if (pass > 0) {// 是否滚动完所有原始数据
+                    if (pass > 0) {
                         needfix = true;
                         this.scrollTo = pass;
                         obj = {scrollTop: _this.scrollTo};
                     }
                     break;
-                case 'right':// right
+                case 'right':
                     var pass = this.scrollTo - this.gap[0];
-                    if (pass < 0) {// 是否滚动完所有原始数据
+                    if (pass < 0) {
                         needfix = true;
                         this.scrollTo = pass + this.gap[1];
                         obj = {scrollLeft: _this.scrollTo};
                     }
                     break;
-                case 'down':// down
+                case 'down':
                     var pass = this.scrollTo - this.gap[0];
-                    if (pass < 0) {// 是否滚动完所有原始数据
+                    if (pass < 0) {
                         needfix = true;
                         this.scrollTo = pass + this.gap[1];
                         obj = {scrollTop: _this.scrollTo};
                     }
                     break;
-                case 'left':// left
+                case 'left':
                     var pass = this.scrollTo + this.fixedDistance - this.gap[1];
-                    if (pass > 0) {// 是否滚动完所有原始数据
+                    if (pass > 0) {
                         needfix = true;
                         this.scrollTo = pass;
                         obj = {scrollLeft: _this.scrollTo};
@@ -226,6 +227,7 @@ if (!!window.jQuery) {
                 this.fixedScroll = Math.round(this.fixedDistance / tool.min(this.$children, this.param.direct));
             }
             this.scrollTo = this.fixedDistance;
+            // clone some els for circle trundle
             this.$el.find(this.param.visibleEls).eq(0).parent()
                 .prepend(tool.getClonedEl(this.fixedDistance, this.$children, 'bottom', this.param.direct))
                 .append(tool.getClonedEl(this.fixedDistance, this.$children, 'top', this.param.direct));
