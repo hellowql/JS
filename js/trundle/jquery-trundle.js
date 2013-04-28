@@ -13,28 +13,29 @@
  */
 if (!!window.jQuery) {
     (function ($, undefined) {
+        /**
+         * a tool
+         *
+         * @type {{outline: Function, min: Function, getClonedEl: Function, _getFn: Function}}
+         */
         var tool = {
-            outline: function ($el, type) {
+            outline: function ($el, type) {// get all els width or height
                 var outline = 0, fn = this._getFn(type);
                 $.each($el, function () {
                     outline += $(this)[fn]();
                 })
                 return outline;
             },
-            min: function ($el, type) {
+            min: function ($el, type) {// get min width or height from all els
                 var fn = this._getFn(type);
                 return Math.min.apply(null, $.map($el, function (n) {
                     return $(n)[fn]();
                 }));
             },
-            getCloneEl: function (outline, $els, type, direct) {
+            getClonedEl: function (outline, $els, type, direct) {// get cloned els for circle trundle
                 var len = 1, $slice;
                 while (true) {
-                    if (type == 'top') {
-                        $slice = $els.slice(0, len);
-                    } else {
-                        $slice = $els.slice(-len);
-                    }
+                    $slice = (type == 'top') ? $els.slice(0, len) : $els.slice(-len);
                     if (tool.outline($slice, direct) / outline >= 1) {
                         break;
                     }
@@ -42,8 +43,8 @@ if (!!window.jQuery) {
                 }
                 return $slice.clone().addClass('cloned');
             },
-            _getFn: function (type) {
-                return (type.toLowerCase() == 'up' || type.toLowerCase() == 'down')
+            _getFn: function (direct) {// get fn by direction
+                return (direct.toLowerCase() == 'up' || direct.toLowerCase() == 'down')
                     ? 'outerHeight' : 'outerWidth';
             }
         };
@@ -53,9 +54,24 @@ if (!!window.jQuery) {
             this.param = param;
         }
 
+        /**
+         * start trundle
+         *
+         * @returns {TRUNDLE}
+         */
         TRUNDLE.prototype.start = function () {
             return this.ready() && this.init() && this.scroll();
         };
+        /**
+         * if els can trundle
+         * condition:
+         *  1.els length gt param.scroll
+         *  or
+         *  2.all els width/height gt param.distance
+         *
+         *
+         * @returns {boolean}
+         */
         TRUNDLE.prototype.ready = function () {
             var scroll = this.param.scroll, distance = this.param.distance;
             var scrollOk = scroll && (this.$el.find(this.param.visibleEls).length > scroll);
@@ -63,12 +79,24 @@ if (!!window.jQuery) {
                 (tool.outline(this.$el.find(this.param.visibleEls), this.param.direct) > distance);
             return scrollOk || distanceOk;
         };
+        /**
+         * pause trundle
+         *
+         * @returns {TRUNDLE}
+         */
         TRUNDLE.prototype.pause = function () {
             clearTimeout(this.timer);
             this.$el.stop(true);
             this.pausetime = new Date().getTime();
             return this;
         };
+        /**
+         * continue trundle
+         *
+         * continue is keywords so use pursue
+         *
+         * @returns {TRUNDLE}
+         */
         TRUNDLE.prototype.pursue = function () {
             var _this = this, obj = {}, key, leavetime = this.pausetime - this.scrolltime;
             if (!isNaN(leavetime) && leavetime > 0) {
@@ -92,6 +120,11 @@ if (!!window.jQuery) {
             }
             return this;
         };
+        /**
+         * get the scrollTop or scrollLeft value of every step
+         *
+         * @returns {Number}
+         */
         TRUNDLE.prototype.scrollStep = function () {
             switch (this.param.direct.toLowerCase()) {
                 default :
@@ -106,6 +139,16 @@ if (!!window.jQuery) {
             }
             return this.scrollTo;
         };
+        /**
+         * scroll fn
+         *
+         * it will change scrollTop or scrollLeft value by animate
+         * and
+         * it will fix scrollTop or scrollLeft when it scroll to the 'end'
+         *
+         * @param directly, if scroll at once
+         * @returns {TRUNDLE}
+         */
         TRUNDLE.prototype.scroll = function (directly) {
             var _this = this, obj = {}, needfix = false;
             switch (this.param.direct.toLowerCase()) {
@@ -166,6 +209,11 @@ if (!!window.jQuery) {
             }, this.param.time);
             return this;
         };
+        /**
+         * init fn
+         *
+         * @returns {TRUNDLE}
+         */
         TRUNDLE.prototype.init = function () {
             var _this = this;
             this.$children = this.$el.find(this.param.visibleEls);
@@ -179,8 +227,8 @@ if (!!window.jQuery) {
             }
             this.scrollTo = this.fixedDistance;
             this.$el.find(this.param.visibleEls).eq(0).parent()
-                .prepend(tool.getCloneEl(this.fixedDistance, this.$children, 'bottom', this.param.direct))
-                .append(tool.getCloneEl(this.fixedDistance, this.$children, 'top', this.param.direct));
+                .prepend(tool.getClonedEl(this.fixedDistance, this.$children, 'bottom', this.param.direct))
+                .append(tool.getClonedEl(this.fixedDistance, this.$children, 'top', this.param.direct));
             switch (this.param.direct.toLowerCase()) {
                 default :
                 case 'up':
