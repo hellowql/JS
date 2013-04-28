@@ -139,12 +139,12 @@ if (!!window.jQuery) {
         TRUNDLE.prototype.scrollStep = function () {
             switch (this.param.direct.toLowerCase()) {
                 default :
-                case 'up':// up
-                case 'left':// left
+                case 'up':
+                case 'left':
                     this.scrollTo += this.fixedDistance;
                     break;
-                case 'down':// down
-                case 'right':// right
+                case 'down':
+                case 'right':
                     this.scrollTo -= this.fixedDistance;
                     break;
             }
