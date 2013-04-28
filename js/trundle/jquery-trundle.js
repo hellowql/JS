@@ -202,7 +202,10 @@ if (!!window.jQuery) {
                         obj = {scrollLeft: _this.scrollStep()};
                         break;
                 }
-                this.$el.animate(obj, this.param.animatetime);
+                this.param.dynamicdata.ready && this.dynamicdata.length ?
+                    this.$el.animate(obj, this.param.animatetime, function () {
+
+                    }) : this.$el.animate(obj, this.param.animatetime);
             }
             this.scrolltime = new Date().getTime();
             this.timer = setTimeout(function () {
@@ -265,6 +268,22 @@ if (!!window.jQuery) {
                     }
                 })
             }
+            if (this.param.dynamicdata.ready) {
+                this.dynamicdata = [];
+                function getData() {
+                    var dynamicdata = this.param.dynamicdata;
+                    $.getJSON(dynamicdata.url, function (datas) {
+                        $.merge(this.dynamicdata, datas);
+                    })
+                    setTimeout(function () {
+                        getData();
+                    }, this.param.dynamicdata.time);
+                }
+
+                setTimeout(function () {
+                    getData();
+                }, this.param.dynamicdata.time);
+            }
             return this;
         };
         $.fn.trundle = function (obj) {
@@ -275,13 +294,21 @@ if (!!window.jQuery) {
                 animatetime: 500,
                 visibleEls: 'li',
                 direct: 'up', // scroll direction enum: up,right,down,left
-                hoverpause: true// over is need pause
+                hoverpause: true,// over is need pause
                 //                over:function(pause){
                 //                    pause();
                 //                },
                 //                out:function(purse){
                 //                    purse();
                 //                }
+                dynamicdata: {// dynamic data
+                    url: '',
+                    time: 5000,
+                    analyze: function ($el, data) {
+                        $el.text(data);
+                    },
+                    ready: false
+                }
             }, obj);
             return this.each(function () {
                 new TRUNDLE($(this), param).start();
