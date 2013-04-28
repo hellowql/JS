@@ -49,8 +49,15 @@ if (!!window.jQuery) {
             }
         };
 
-        function TRUNDLE(el, param) {
-            this.$el = el;
+        /**
+         * TRUNDLE obj
+         *
+         * @param el
+         * @param param
+         * @constructor
+         */
+        function TRUNDLE($el, param) {
+            this.$el = $el;
             this.param = param;
         }
 
@@ -114,9 +121,13 @@ if (!!window.jQuery) {
                 for (key in obj);
                 if (this.$el.prop(key) != this.scrollTo) {
                     obj[key] = _this.scrollTo;
-                    this.$el.animate(obj, leavetime);
+                    this.scrolltime = new Date().getTime();
+                    this.$el.animate(obj, leavetime, function () {
+                        _this.scroll();
+                    });
+                } else {
+                    this.scroll();
                 }
-                this.scroll();
             }
             return this;
         };
@@ -220,7 +231,7 @@ if (!!window.jQuery) {
          */
         TRUNDLE.prototype.init = function () {
             var _this = this;
-            this.$children = this.$el.find(this.param.visibleEls);
+            this.$children = this.$el.find(this.param.visibleEls).not('.cloned');
             this.fixedScroll = this.param.scroll;
             this.fixedDistance = parseInt(this.param.distance);
             if (isNaN(this.fixedDistance) && this.fixedScroll > 0) {
