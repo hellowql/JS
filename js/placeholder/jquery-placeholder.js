@@ -37,21 +37,43 @@ if (!!window.jQuery) {
                 this.each(function () {
                     var $this = $(this);
                     placeholder = $this.attr(param.placeholder);
-                    if ($this.data('__placeholder__') === true || placeholder == undefined) {// placeholder-ed el never do again
+                    if ($this.data('__placeholder__') === true || placeholder == undefined || $.trim(placeholder) == '') {// placeholder-ed el never do again
                         return;
                     }
-                    html = $('<label></label>');
+                    html = $('<label/>');
                     html.text(placeholder);
-                    if (!param.hideCss) {
-                        html.css(param.css);
+                    //                    if (!param.hideCss) {
+                    //                        html.css(param.css);
+                    //                    }
+                    //                    if (param.className) {
+                    //                        html.addClass(param.className);
+                    //                    }
+                    //                    if ($this.parent().is('td')) {
+                    //                        $this.wrap('<div></div>')
+                    //                    }
+                    //                    $this.parent().css('position', 'relative');
+                    html.css({
+                        position: 'absolute',
+                        color: '#bbb',
+                        display: 'inline',
+                        overflow: 'hidden',
+                        top: $this.offset().top,
+                        left: $this.offset().left,
+                        width: $this.width(),
+                        height: $this.height(),
+                        textIndent: $this.css('textIndent'),
+                        paddingLeft: $this.css('borderLeftWidth'),
+                        paddingTop: $this.css('borderTopWidth'),
+                        paddingRight: $this.css('borderRightWidth'),
+                        paddingBottom: $this.css('borderBottomWidth'),
+                        fontSize: $this.css('fontSize'),
+                        fontFamily: $this.css('fontFamily'),
+                        fontWeight: $this.css('fontWeight')
+                    });
+                    if ($this.css('lineHeight')) {
+                        console.log($this.css('lineHeight'))
+                        html.css('lineHeight', $this.css('lineHeight'));
                     }
-                    if (param.className) {
-                        html.addClass(param.className);
-                    }
-                    if ($this.parent().is('td')) {
-                        $this.wrap('<div></div>')
-                    }
-                    $this.parent().css('position', 'relative');
                     $this.before(html);
                     html.bind('click.placeholder', function () {
                         $(this).next().focus();
