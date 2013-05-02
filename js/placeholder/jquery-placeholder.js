@@ -27,14 +27,8 @@ if (!!window.jQuery) {
             param = $.extend(true, {
                 placeholder: 'placeholder', //placeholder attribute,default will use explorer original function
                 css: {// placeholder text dom css
-//                    position: 'absolute',
-//                    top: '5px',
-//                    left: '4px',
-//                    color: 'red'
                     cursor: 'text'
-//                    fontSize: '12px'
                 },
-//                hideCss: false, //className and css how to take effect,true just className take effect
                 hideStyle: 'value', //enum:value,focus;hide placeholder when focus or value exists,focus is of no effect when placeholder is 'placeholder'
                 className: ''//placeholder text dom className
             }, obj);
@@ -43,7 +37,7 @@ if (!!window.jQuery) {
                 this.each(function () {
                     var $this = $(this), repeat;
                     placeholder = $this.attr(param.placeholder);
-                    if (/*$this.data('__placeholder__') === true || */placeholder == undefined || $.trim(placeholder) == '') {// placeholder-ed el never do again
+                    if ($.trim(placeholder) == '') {
                         return;
                     }
                     repeat = $this.prev().hasClass(plugin);
@@ -54,16 +48,6 @@ if (!!window.jQuery) {
                     } else {
                         html = $this.prev();
                     }
-                    //                    if (!param.hideCss) {
-                    //                        html.css(param.css);
-                    //                    }
-                    //                    if (param.className) {
-                    //                        html.addClass(param.className);
-                    //                    }
-                    //                    if ($this.parent().is('td')) {
-                    //                        $this.wrap('<div></div>')
-                    //                    }
-                    //                    $this.parent().css('position', 'relative');
                     html.css($.extend({
                         position: 'absolute',
                         color: '#bbb',
@@ -76,7 +60,6 @@ if (!!window.jQuery) {
                         textIndent: $this.css('textIndent'),
                         paddingLeft: $this.css('borderLeftWidth'),
                         paddingTop: $this.css('borderTopWidth'),
-//                        paddingTop: parseInt($this.css('borderTopWidth'),10)+parseInt($this.css('paddingTop'),10)+'px',
                         paddingRight: $this.css('borderRightWidth'),
                         paddingBottom: $this.css('borderBottomWidth'),
                         fontSize: $this.css('fontSize'),
@@ -89,21 +72,19 @@ if (!!window.jQuery) {
                     } else {
                         html.css('lineHeight', $this.css('lineHeight'));
                     }
-                    if (!this.id) {
-                        this.id = plugin + '_' + uuid();
-                    }
-                    html.attr('for', this.id);
-//                    html.bind('click.placeholder', function () {
-//                        $(this).next().focus();
-//                    });
                     if (!repeat) {
+                        if (!this.id) {
+                            this.id = plugin + '_' + uuid();
+                        }
+                        html.attr('for', this.id);
                         $this.before(html);
                     }
                     switch (param.hideStyle) {
                         case 'focus':
-                            $this.unbind('focus.placeholder keyup.placeholder blur.placeholder').bind('focus.placeholder keyup.placeholder',function () {
-                                $(this).prev().css('display', 'none');
-                            }).bind('blur.placeholder',function () {
+                            $this.unbind('focus.placeholder keyup.placeholder blur.placeholder')
+                                .bind('focus.placeholder keyup.placeholder',function () {
+                                    $(this).prev().css('display', 'none');
+                                }).bind('blur.placeholder',function () {
                                     if (this.value.length > 0) {
                                         $(this).prev().css('display', 'none');
                                     } else {
@@ -112,19 +93,19 @@ if (!!window.jQuery) {
                                 }).triggerHandler('blur.placeholder');
                             break;
                         default :
-                            $this.unbind('keyup.placeholder blur.placeholder').bind('keyup.placeholder blur.placeholder',function () {
-                                if (this.value.length > 0) {
-                                    $(this).prev().css('display', 'none');
-                                } else {
-                                    $(this).prev().css('display', 'inline');
-                                }
-                            }).triggerHandler('blur.placeholder');
+                            $this.unbind('keyup.placeholder blur.placeholder')
+                                .bind('keyup.placeholder blur.placeholder',function () {
+                                    if (this.value.length > 0) {
+                                        $(this).prev().css('display', 'none');
+                                    } else {
+                                        $(this).prev().css('display', 'inline');
+                                    }
+                                }).triggerHandler('blur.placeholder');
                     }
-//                    $this.data('__placeholder__', true);// mark this el placeholder
                 });
             }
             supported = html = placeholder = param = undefined;
             return this;
         }
-    }(window.jQuery, 'placeholder'))
+    }(window.jQuery, 'placeholder'));
 }
