@@ -13,24 +13,26 @@
  */
 if (!!window.jQuery) {
     (function ($, plugin, undefined) {
+        var uuid;
         if ($.fn[plugin]) {
             return;
         }
-        var id = 0;
-
-        function uuid() {
-            return id++;
-        }
+        uuid = (function () {
+            var id = 0;
+            return function () {
+                return id++;
+            };
+        }());
 
         $.fn[plugin] = function (obj) {
             var html, placeholder, param, supported;
             param = $.extend(true, {
-                placeholder: 'placeholder', //placeholder attribute,default will use explorer original function
+                placeholder: 'placeholder', // placeholder attribute,default will use explorer original function
                 css: {// placeholder text dom css
                     cursor: 'text'
                 },
-                hideStyle: 'value', //enum:value,focus;hide placeholder when focus or value exists,focus is of no effect when placeholder is 'placeholder'
-                className: ''//placeholder text dom className
+                hideStyle: 'value', // enum:value,focus;hide placeholder when focus or value exists,focus is of no effect when placeholder is 'placeholder'
+                className: ''// placeholder text dom className
             }, obj);
             supported = param.placeholder in document.createElement('input');
             if (!supported) {
@@ -66,7 +68,7 @@ if (!!window.jQuery) {
                         fontFamily: $this.css('fontFamily'),
                         fontWeight: $this.css('fontWeight')
                     }, param.css));
-                    //buttons or other input element, line-height has no effect,so use height replaced
+                    // buttons or other input element, line-height has no effect,so use height replaced
                     if ($this.is('input') || $this.is('button')) {
                         html.css('lineHeight', $this.css('height'));
                     } else {
