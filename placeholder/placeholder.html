@@ -11,6 +11,7 @@
 
         input {
             height: 40px;
+            line-height: 40px;
         }
 
         textarea {
@@ -19,14 +20,16 @@
         }
 
         .age {
-            /*text-indent: 10px;*/
+            text-indent: 10px;
             border: 2px solid red;
             padding-left: 12px;
             padding-top: 2px;
+            margin: 0 5px;
         }
     </style>
 </head>
 <body>
+<div>dsfds</div>
 <table>
     <tr>
         <td>姓名</td>
@@ -49,6 +52,15 @@
         <td><textarea name="other" placeholder1="请输入其他信息"></textarea><textarea name="other">请输入其他信息</textarea></td>
     </tr>
 </table>
+<div>
+    <input name="gender" placeholder1="请输入性别"/><input name="gender" value="请输入性别"/>
+</div>
+<div style="position: relative"><input name="gender" placeholder1="请输入性别"/><input name="gender" value="请输入性别"/></div>
+<div style="position: relative">
+    dsafdsafd<br/>
+
+    <div><input name="gender" class="age" placeholder1="请输入性别"/><input name="gender" value="请输入性别"/></div>
+</div>
 </body>
 <!--<script type="text/javascript" src="../js/jquery/jquery-1.3.2.js" charset="utf-8"></script>-->
 <!--<script type="text/javascript" src="../js/jquery/jquery-1.4.0.js" charset="utf-8"></script>-->
@@ -76,6 +88,6 @@
 <script type="text/javascript" src="../js/placeholder/jquery-placeholder.js" charset="utf-8"></script>
 <script type="text/javascript">
     $(':input[placeholder1]').placeholder({placeholder: 'placeholder1'});
-    $('.age').placeholder({hideStyle: 'value', placeholder: 'placeholder1'});
+    //$('.age').placeholder({hideStyle: 'value', placeholder: 'placeholder1'});
 </script>
 </html>

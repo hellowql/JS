@@ -13,7 +13,7 @@
  */
 if (!!window.jQuery) {
     (function ($, plugin, undefined) {
-        var uuid;
+        var uuid, tool;
         if ($.fn[plugin]) {
             return;
         }
@@ -24,8 +24,45 @@ if (!!window.jQuery) {
             };
         }());
 
+        tool = {
+            getValue: function ($el, direct) {
+                var border, padding, margin, value = null;
+                switch (direct) {
+                    case 'top':
+                        border = $el.css('borderTopWidth');
+                        padding = $el.css('paddingTop');
+                        //margin = $el.css('marginTop');
+                        break;
+                    case 'right':
+                        border = $el.css('borderRightWidth');
+                        padding = $el.css('paddingRight');
+                        //margin = $el.css('marginRight');
+                        break;
+                    case 'down':
+                        border = $el.css('borderBottomWidth');
+                        padding = $el.css('paddingBottom');
+                        //margin = $el.css('marginBottom');
+                        break;
+                    case 'left':
+                        border = $el.css('borderLeftWidth');
+                        padding = $el.css('paddingLeft');
+                        //margin = $el.css('marginLeft');
+                        break;
+                }
+                return this._getValue(border, padding, margin);
+            },
+            _getValue: function (border, padding, margin) {
+                var value = null;
+                if (border && padding && border.replace(/\d/g, '') == padding.replace(/\d/g, '')) {
+                    value = parseInt(border, 10) + parseInt(padding, 10) + padding.replace(/\d/g, '');
+                } else {
+                    value = border || padding;
+                }
+                return value;
+            }
+        }
         $.fn[plugin] = function (obj) {
-            var html, placeholder, param, supported, tool;
+            var html, placeholder, param, supported;
             param = $.extend(true, {
                 placeholder: 'placeholder', // placeholder attribute,default will use explorer original function
                 css: {// placeholder text dom css
@@ -35,46 +72,6 @@ if (!!window.jQuery) {
                 className: ''// placeholder text dom className
             }, obj);
             supported = param.placeholder in document.createElement('input');
-            tool = {
-                getValue: function ($el, direct) {
-                    var border, padding, margin, value = null;
-                    switch (direct) {
-                        case 'top':
-                            border = $el.css('borderTopWidth');
-                            padding = $el.css('paddingTop');
-                            margin = $el.css('marginTop');
-                            break;
-                        case 'right':
-                            border = $el.css('borderRightWidth');
-                            padding = $el.css('paddingRight');
-                            margin = $el.css('marginRight');
-                            break;
-                        case 'down':
-                            border = $el.css('borderBottomWidth');
-                            padding = $el.css('paddingBottom');
-                            margin = $el.css('marginBottom');
-                            break;
-                        case 'left':
-                            border = $el.css('borderLeftWidth');
-                            padding = $el.css('paddingLeft');
-                            margin = $el.css('marginLeft');
-                            break;
-                    }
-                    return this._getValue(border, padding, margin);
-                },
-                _getValue: function (border, padding, margin) {
-                    var value = null;
-                    console.log(border, padding, margin)
-                    if (border && padding && border.replace(/\d/g, '') == padding.replace(/\d/g, '')) {
-                        console.log('parseint');
-                        value = parseInt(border, 10) + parseInt(padding, 10) + padding.replace(/\d/g, '');
-                    } else {
-                        console.log('border-padding', border, padding)
-                        value = border || padding;
-                    }
-                    return value;
-                }
-            }
             if (!supported) {
                 this.each(function () {
                     var $this = $(this), repeat;
@@ -95,11 +92,15 @@ if (!!window.jQuery) {
                         color: '#bbb',
                         display: 'inline',
                         overflow: 'hidden',
-                        top: $this.offset().top,
-                        left: $this.offset().left,
+                        top: $this.parent().is('body') ? $this.offset().top : $this.position().top,
+                        left: $this.parent().is('body') ? $this.offset().left : $this.position().left,
                         width: $this.width(),
                         height: $this.height(),
                         textIndent: $this.css('textIndent'),
+                        marginTop: $this.css('marginTop'),
+                        marginRight: $this.css('marginRight'),
+                        marginBottom: $this.css('marginBottom'),
+                        marginLeft: $this.css('marginLeft'),
                         paddingTop: tool.getValue($this, 'top'),//$this.css('borderTopWidth'),
                         paddingRight: tool.getValue($this, 'right'),//$this.css('borderRightWidth'),
                         paddingBottom: tool.getValue($this, 'bottom'),//$this.css('borderBottomWidth'),
@@ -110,7 +111,7 @@ if (!!window.jQuery) {
                     }, param.css));
                     // buttons or other input element, line-height has no effect,so use height replaced
                     if ($this.is('input') || $this.is('button')) {
-                        html.css('lineHeight', $this.css('height'));
+                        html.css('lineHeight', $this.css('height') == 'auto' ? null : $this.css('height'));
                     } else {
                         html.css('lineHeight', $this.css('lineHeight'));
                     }
