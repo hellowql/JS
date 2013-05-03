@@ -25,7 +25,7 @@ if (!!window.jQuery) {
         }());
 
         $.fn[plugin] = function (obj) {
-            var html, placeholder, param, supported;
+            var html, placeholder, param, supported, tool;
             param = $.extend(true, {
                 placeholder: 'placeholder', // placeholder attribute,default will use explorer original function
                 css: {// placeholder text dom css
@@ -35,6 +35,46 @@ if (!!window.jQuery) {
                 className: ''// placeholder text dom className
             }, obj);
             supported = param.placeholder in document.createElement('input');
+            tool = {
+                getValue: function ($el, direct) {
+                    var border, padding, margin, value = null;
+                    switch (direct) {
+                        case 'top':
+                            border = $el.css('borderTopWidth');
+                            padding = $el.css('paddingTop');
+                            margin = $el.css('marginTop');
+                            break;
+                        case 'right':
+                            border = $el.css('borderRightWidth');
+                            padding = $el.css('paddingRight');
+                            margin = $el.css('marginRight');
+                            break;
+                        case 'down':
+                            border = $el.css('borderBottomWidth');
+                            padding = $el.css('paddingBottom');
+                            margin = $el.css('marginBottom');
+                            break;
+                        case 'left':
+                            border = $el.css('borderLeftWidth');
+                            padding = $el.css('paddingLeft');
+                            margin = $el.css('marginLeft');
+                            break;
+                    }
+                    return this._getValue(border, padding, margin);
+                },
+                _getValue: function (border, padding, margin) {
+                    var value = null;
+                    console.log(border, padding, margin)
+                    if (border && padding && border.replace(/\d/g, '') == padding.replace(/\d/g, '')) {
+                        console.log('parseint');
+                        value = parseInt(border, 10) + parseInt(padding, 10) + padding.replace(/\d/g, '');
+                    } else {
+                        console.log('border-padding', border, padding)
+                        value = border || padding;
+                    }
+                    return value;
+                }
+            }
             if (!supported) {
                 this.each(function () {
                     var $this = $(this), repeat;
@@ -60,10 +100,10 @@ if (!!window.jQuery) {
                         width: $this.width(),
                         height: $this.height(),
                         textIndent: $this.css('textIndent'),
-                        paddingLeft: $this.css('borderLeftWidth'),
-                        paddingTop: $this.css('borderTopWidth'),
-                        paddingRight: $this.css('borderRightWidth'),
-                        paddingBottom: $this.css('borderBottomWidth'),
+                        paddingTop: tool.getValue($this, 'top'),//$this.css('borderTopWidth'),
+                        paddingRight: tool.getValue($this, 'right'),//$this.css('borderRightWidth'),
+                        paddingBottom: tool.getValue($this, 'bottom'),//$this.css('borderBottomWidth'),
+                        paddingLeft: tool.getValue($this, 'left'),// $this.css('borderLeftWidth'),
                         fontSize: $this.css('fontSize'),
                         fontFamily: $this.css('fontFamily'),
                         fontWeight: $this.css('fontWeight')

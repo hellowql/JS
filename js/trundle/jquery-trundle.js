@@ -215,7 +215,7 @@ if (!!window.jQuery) {
                 }
                 this.param.dynamicdata.ready && this.dynamicdata.length ?
                     this.$el.animate(obj, this.param.animatetime, function () {
-
+                        _this.addData();
                     }) : this.$el.animate(obj, this.param.animatetime);
             }
             this.scrolltime = new Date().getTime();
@@ -224,6 +224,15 @@ if (!!window.jQuery) {
             }, this.param.time);
             return this;
         };
+        /**
+         * addData
+         *
+         * push data to li
+         *
+         */
+        TRUNDLE.prototype.addData = function () {
+
+        }
         /**
          * init fn
          *
@@ -278,6 +287,12 @@ if (!!window.jQuery) {
                         _this.pursue();
                     }
                 })
+            }
+            if (this.param.dynamicdata && this.param.dynamicdata.url
+                && this.param.dynamicdata.time && $.isFunction(this.param.dynamicdata.analyze)) {
+                this.param.dynamicdata.ready = true;
+            } else {
+                this.param.dynamicdata.ready = false;
             }
             if (this.param.dynamicdata.ready) {
                 this.dynamicdata = [];
