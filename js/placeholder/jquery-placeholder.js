@@ -25,32 +25,6 @@ if (!!window.jQuery) {
         }());
 
         tool = {
-            getValue: function ($el, direct) {
-                var border, padding, margin, value = null;
-                switch (direct) {
-                    case 'top':
-                        border = $el.css('borderTopWidth');
-                        padding = $el.css('paddingTop');
-                        //margin = $el.css('marginTop');
-                        break;
-                    case 'right':
-                        border = $el.css('borderRightWidth');
-                        padding = $el.css('paddingRight');
-                        //margin = $el.css('marginRight');
-                        break;
-                    case 'down':
-                        border = $el.css('borderBottomWidth');
-                        padding = $el.css('paddingBottom');
-                        //margin = $el.css('marginBottom');
-                        break;
-                    case 'left':
-                        border = $el.css('borderLeftWidth');
-                        padding = $el.css('paddingLeft');
-                        //margin = $el.css('marginLeft');
-                        break;
-                }
-                return this._getValue(border, padding, margin);
-            },
             getPaddingAndBorder: function ($el) {
                 var padding = [$el.css('paddingTop'), $el.css('paddingRight'), $el.css('paddingBottom'), $el.css('paddingLeft')];
                 var border = [$el.css('borderTopWidth'), $el.css('borderRightWidth'), $el.css('borderBottomWidth'), $el.css('borderLeftWidth')];
@@ -60,15 +34,6 @@ if (!!window.jQuery) {
                     }
                 }
                 return padding.join(' ');
-            },
-            _getValue: function (border, padding, margin) {
-                var value = null;
-                if (border && padding && border.replace(/\d/g, '') == padding.replace(/\d/g, '')) {
-                    value = parseInt(border, 10) + parseInt(padding, 10) + padding.replace(/\d/g, '');
-                } else {
-                    value = border || padding;
-                }
-                return value;
             }
         }
         $.fn[plugin] = function (obj) {
@@ -107,18 +72,8 @@ if (!!window.jQuery) {
                         width: $this.width(),
                         height: $this.height(),
                         textIndent: $this.css('textIndent'),
-                        //                        marginTop: $this.css('marginTop'),
-                        //                        marginRight: $this.css('marginRight'),
-                        //                        marginBottom: $this.css('marginBottom'),
-                        //                        marginLeft: $this.css('marginLeft'),
                         margin: $this.css('margin'),
-                        //                        paddingTop: tool.getValue($this, 'top'),//$this.css('borderTopWidth'),
-                        //                        paddingRight: tool.getValue($this, 'right'),//$this.css('borderRightWidth'),
-                        //                        paddingBottom: tool.getValue($this, 'bottom'),//$this.css('borderBottomWidth'),
-                        //                        paddingLeft: tool.getValue($this, 'left'),// $this.css('borderLeftWidth'),
                         padding: tool.getPaddingAndBorder($this),
-                        //                        padding:$this.css('padding'),
-                        //                        border:$this.css('border'),
                         fontSize: $this.css('fontSize')
                         //                        fontFamily: $this.css('fontFamily'),
                         //                        fontWeight: $this.css('fontWeight')
@@ -134,6 +89,7 @@ if (!!window.jQuery) {
                             this.id = plugin + '_' + uuid();
                         }
                         html.attr('for', this.id);
+                        $this.attr('autocomplete', 'off');
                         $this.before(html);
                     }
                     switch (param.hideStyle) {
