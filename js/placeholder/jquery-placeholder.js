@@ -51,6 +51,16 @@ if (!!window.jQuery) {
                 }
                 return this._getValue(border, padding, margin);
             },
+            getPaddingAndBorder: function ($el) {
+                var padding = [$el.css('paddingTop'), $el.css('paddingRight'), $el.css('paddingBottom'), $el.css('paddingLeft')];
+                var border = [$el.css('borderTopWidth'), $el.css('borderRightWidth'), $el.css('borderBottomWidth'), $el.css('borderLeftWidth')];
+                if (padding.join('').replace(/\d/g, '') == border.join('').replace(/\d/g, '')) {
+                    for (var i = 0, j = padding.length; i < j; i++) {
+                        padding[i] = parseInt(padding[i], 10) + parseInt(border[i], 10) + padding[i].replace(/\d/g, '');
+                    }
+                }
+                return padding.join(' ');
+            },
             _getValue: function (border, padding, margin) {
                 var value = null;
                 if (border && padding && border.replace(/\d/g, '') == padding.replace(/\d/g, '')) {
@@ -97,17 +107,21 @@ if (!!window.jQuery) {
                         width: $this.width(),
                         height: $this.height(),
                         textIndent: $this.css('textIndent'),
-                        marginTop: $this.css('marginTop'),
-                        marginRight: $this.css('marginRight'),
-                        marginBottom: $this.css('marginBottom'),
-                        marginLeft: $this.css('marginLeft'),
-                        paddingTop: tool.getValue($this, 'top'),//$this.css('borderTopWidth'),
-                        paddingRight: tool.getValue($this, 'right'),//$this.css('borderRightWidth'),
-                        paddingBottom: tool.getValue($this, 'bottom'),//$this.css('borderBottomWidth'),
-                        paddingLeft: tool.getValue($this, 'left'),// $this.css('borderLeftWidth'),
-                        fontSize: $this.css('fontSize'),
-                        fontFamily: $this.css('fontFamily'),
-                        fontWeight: $this.css('fontWeight')
+                        //                        marginTop: $this.css('marginTop'),
+                        //                        marginRight: $this.css('marginRight'),
+                        //                        marginBottom: $this.css('marginBottom'),
+                        //                        marginLeft: $this.css('marginLeft'),
+                        margin: $this.css('margin'),
+                        //                        paddingTop: tool.getValue($this, 'top'),//$this.css('borderTopWidth'),
+                        //                        paddingRight: tool.getValue($this, 'right'),//$this.css('borderRightWidth'),
+                        //                        paddingBottom: tool.getValue($this, 'bottom'),//$this.css('borderBottomWidth'),
+                        //                        paddingLeft: tool.getValue($this, 'left'),// $this.css('borderLeftWidth'),
+                        padding: tool.getPaddingAndBorder($this),
+                        //                        padding:$this.css('padding'),
+                        //                        border:$this.css('border'),
+                        fontSize: $this.css('fontSize')
+                        //                        fontFamily: $this.css('fontFamily'),
+                        //                        fontWeight: $this.css('fontWeight')
                     }, param.css));
                     // buttons or other input element, line-height has no effect,so use height replaced
                     if ($this.is('input') || $this.is('button')) {
