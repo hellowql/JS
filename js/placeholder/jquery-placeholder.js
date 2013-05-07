@@ -32,8 +32,9 @@ if (!!window.jQuery) {
                     for (var i = 0, j = padding.length; i < j; i++) {
                         padding[i] = parseInt(padding[i], 10) + parseInt(border[i], 10) + padding[i].replace(/\d/g, '');
                     }
+                    return padding.join(' ');
                 }
-                return padding.join(' ');
+                return null;
             }
         }
         $.fn[plugin] = function (obj) {
