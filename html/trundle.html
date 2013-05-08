@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <title></title>
+</head>
+<style type="text/css">
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    #main {
+        width: 800px;
+        height: 800px;
+        margin: 50px 30%;
+        border: 1px solid green;
+    }
+
+    div {
+        width: 398px;
+        height: 398px;
+        border: 1px solid #9acd32;
+        background-color: #dcdcdc;
+        float: left;
+    }
+
+    span {
+        margin: 30% auto;
+        border: 2px solid red;
+        overflow: hidden;
+        display: block;
+    }
+
+    #span1, #span2 {
+        width: 150px;
+        height: 260px;
+    }
+
+    #span1 li, #span2 li {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    #span3, #span4 {
+        width: 300px;
+        height: 130px;
+        list-style: none;
+    }
+
+    #span3 ul, #span4 ul {
+        width: 2000px;
+        height: 130px;
+        list-style: none;
+    }
+
+    #span3 li, #span4 li {
+        float: left;
+        margin: 0 auto;
+        list-style: none;
+    }
+
+    li, img {
+        width: 150px;
+        height: 130px;
+    }
+</style>
+<body>
+<div id="main">
+    <div>
+        <span id="span1">
+            <ul>
+                <li><img src="http://www.xyz.cn/images/classroom/banner.png" alt="车险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_1.gif" alt="旅行意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_2.gif" alt="交通意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_3.gif" alt="旅行意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_4.gif" alt="团体意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_6.gif" alt="货运险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_5.gif" alt="理财保险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_7.gif" alt="产品责任保险"/></li>
+            </ul>
+        </span>
+    </div>
+    <div>
+        <span id="span2">
+            <ul>
+                <li><img src="http://www.xyz.cn/images/classroom/banner.png" alt="车险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_1.gif" alt="旅行意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_2.gif" alt="交通意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_3.gif" alt="旅行意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_4.gif" alt="团体意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_6.gif" alt="货运险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_5.gif" alt="理财保险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_7.gif" alt="产品责任保险"/></li>
+            </ul>
+        </span>
+    </div>
+    <div>
+        <span id="span3">
+            <ul>
+                <li><img src="http://www.xyz.cn/images/classroom/banner.png" alt="车险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_1.gif" alt="旅行意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_2.gif" alt="交通意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_3.gif" alt="旅行意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_4.gif" alt="团体意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_6.gif" alt="货运险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_5.gif" alt="理财保险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_7.gif" alt="产品责任保险"/></li>
+            </ul>
+        </span>
+    </div>
+    <div>
+        <span id="span4">
+            <ul>
+                <li><img src="http://www.xyz.cn/images/classroom/banner.png" alt="车险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_1.gif" alt="旅行意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_2.gif" alt="交通意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_3.gif" alt="旅行意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_4.gif" alt="团体意外险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_6.gif" alt="货运险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_5.gif" alt="理财保险"/></li>
+                <li><img src="http://www.xyz.cn/images/classroom/xzzl_7.gif" alt="产品责任保险"/></li>
+            </ul>
+        </span>
+    </div>
+</div>
+<script type="text/javascript" src="../js/jquery/jquery-1.9.1.js" charset="utf-8"></script>
+<script type="text/javascript" src="../js/trundle/jquery-trundle.js" charset="utf-8"></script>
+<script type="text/javascript">
+    $("#span1").trundle();
+    $("#span2").trundle({direct: 'down'});
+    $("#span3").trundle({direct: 'Left'});
+    $("#span4").trundle({direct: 'RIGHT'});
+</script>
+</body>
+</html>
