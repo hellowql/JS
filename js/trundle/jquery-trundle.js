@@ -26,6 +26,16 @@ if (!!window.jQuery) {
                 })
                 return outline;
             },
+            getElsByOutline: function ($el, outline, type) {
+                var _this = this, els = [], distance = 0;
+                $el.each(function () {
+                    distance += _this.outline($(this), type);
+                    if (distance > outline[0] && distance <= outline[1]) {
+                        els.push(this);
+                    }
+                });
+                return $(els);
+            },
             min: function ($el, type) {// get min width or height from all els
                 var fn = this._getFn(type);
                 return Math.min.apply(null, $.map($el, function (n) {
@@ -231,7 +241,21 @@ if (!!window.jQuery) {
          *
          */
         TRUNDLE.prototype.addData = function () {
-
+            var _this = this, data, $el, outline = [], $parent;
+            if (!this.dynamicdata.length) return this;
+            outline[0] = this.scrollTo;
+            outline[1] = outline[0] + this.fixedDistance;
+            if (!(outline[0] >= this.gap[0] && outline[1] <= this.gap[1])) return this;
+            data = this.dynamicdata.splice(0, Math.min(this.dynamicdata.length, this.fixedScroll));
+            $el = tool.getElsByOutline(this.$el.find(this.param.visibleEls), outline, this.param.direct);
+            if (!$el.length) return this;
+            $.merge($el, $.map(data, function (de) {
+                return _this.param.dynamicdata.analyze(de);
+            }));
+            $parent = this.$el.find(this.param.visibleEls).parent();
+            $parent.children().remove();
+            $parent.append($el);
+            this.pause().start();
         }
         /**
          * init fn
@@ -295,15 +319,20 @@ if (!!window.jQuery) {
                 this.param.dynamicdata.ready = false;
             }
             if (this.param.dynamicdata.ready) {
-                this.dynamicdata = [];
+                if (!this.dynamicdata) {
+                    this.dynamicdata = [];
+                }
                 function getData() {
-                    var dynamicdata = this.param.dynamicdata;
-                    $.getJSON(dynamicdata.url, function (datas) {
-                        $.merge(this.dynamicdata, datas);
-                    })
+//                    var dynamicdata = this.param.dynamicdata;
+//                    $.getJSON(dynamicdata.url, function (datas) {
+//                        $.merge(this.dynamicdata, datas);
+//                    })
+                    if (_this.dynamicdata.length == 0) {
+                        _this.dynamicdata = ['aaaaaa', 'bbbbbb', 'cccccc', 'dddddd']
+                    }
                     setTimeout(function () {
                         getData();
-                    }, this.param.dynamicdata.time);
+                    }, _this.param.dynamicdata.time);
                 }
 
                 setTimeout(function () {
@@ -328,10 +357,12 @@ if (!!window.jQuery) {
                 //                    purse();
                 //                }
                 dynamicdata: {// dynamic data
-                    url: '',
+                    url: 'xx',
+                    data: [],
                     time: 5000,
-                    analyze: function ($el, data) {
-                        $el.text(data);
+                    analyze: function (data) {
+                        //$el.text(data);
+                        return $('<li></li>').text(data).get(0);
                     },
                     ready: false
                 }
