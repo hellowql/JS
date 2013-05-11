@@ -241,28 +241,46 @@ if (!!window.jQuery) {
          *
          */
         TRUNDLE.prototype.addData = function () {
-            var _this = this, data, $el, outline = [], $parent;
+            var _this = this, data, $el, outline = [], $parent, index;
             if (!this.dynamicdata.length) return this;
             outline[0] = this.scrollTo;
             outline[1] = outline[0] + this.fixedDistance;
-            if (!(outline[0] >= this.gap[0] && outline[1] <= this.gap[1])) return this;
-            data = this.dynamicdata.splice(0, Math.min(this.dynamicdata.length, this.fixedScroll));
             $el = tool.getElsByOutline(this.$el.find(this.param.visibleEls), outline, this.param.direct);
+            this.$children.each(function (i, el) {
+                var add = !!$(el).data('_added_data_');
+                var show = !!$el.filter(el).length;
+            });
             if (!$el.length) return this;
-            $.merge($el, $.map(data, function (de) {
-                return _this.param.dynamicdata.analyze(de);
-            }));
-            $parent = this.$el.find(this.param.visibleEls).parent();
-            $parent.children().remove();
-            $parent.append($el);
+            if (this.$children.index($el.eq(0)) == -1) return this;
+            if (!$.map(this.$children,function (el) {
+                return !!$(el).data('_added_data_') ? null : true;
+            }).length) {
+                this.$children.each(function () {
+                    $(this).removeData('_added_data_');
+                })
+            }
+            data = this.dynamicdata.splice(0, Math.min(this.dynamicdata.length, $.map(this.$children,function (el) {
+                var add = !!$(el).data('_added_data_');
+                var show = !!$el.filter(el).length;
+                return add || show ? null : true;
+            }).length, this.$children.length - $el.length));
+            this.$children.each(function () {
+                var $e = $(this);
+                if (!$el.filter($e).length && !$e.data('_added_data_') && data.length) {
+                    _this.param.dynamicdata.analyze(this, data.shift());
+                    $e.data('_added_data_', true);
+                }
+            });
+            this.$el.find(this.param.visibleEls).filter('.cloned').remove();
+            this.startIndex = this.$children.index($el);
             this.pause().start();
         }
-        /**
-         * init fn
-         *
-         * @returns {TRUNDLE}
-         */
         TRUNDLE.prototype.init = function () {
+            /**
+             * init fn
+             *
+             * @returns {TRUNDLE}
+             */
             var _this = this;
             this.$children = this.$el.find(this.param.visibleEls).not('.cloned');
             this.fixedScroll = this.param.scroll;
@@ -273,11 +291,17 @@ if (!!window.jQuery) {
             if (this.fixedDistance > 0) {
                 this.fixedScroll = Math.round(this.fixedDistance / tool.min(this.$children, this.param.direct));
             }
-            this.scrollTo = this.fixedDistance;
             // clone some els for circle trundle
             this.$el.find(this.param.visibleEls).eq(0).parent()
                 .prepend(tool.getClonedEl(this.fixedDistance, this.$children, 'bottom', this.param.direct))
                 .append(tool.getClonedEl(this.fixedDistance, this.$children, 'top', this.param.direct));
+            this.scrollTo = this.fixedDistance;
+            if (this.startIndex) {
+                this.scrollTo += tool.outline(this.$children.filter(function (i) {
+                    return i < _this.startIndex;
+                }), this.param.direct);
+                this.startIndex = null;
+            }
             switch (this.param.direct.toLowerCase()) {
                 default :
                 case 'up':
@@ -327,8 +351,12 @@ if (!!window.jQuery) {
 //                    $.getJSON(dynamicdata.url, function (datas) {
 //                        $.merge(this.dynamicdata, datas);
 //                    })
-                    if (_this.dynamicdata.length == 0) {
-                        _this.dynamicdata = ['aaaaaa', 'bbbbbb', 'cccccc', 'dddddd']
+//                    if (_this.dynamicdata.length == 0) {
+//                        _this.dynamicdata = ['aaaaaa', 'bbbbbb', 'cccccc', 'dddddd']
+//                    }
+                    if ($('body').data('_data_')) {
+                        _this.dynamicdata = $('body').data('_data_');
+                        $('body').removeData('_data_');
                     }
                     setTimeout(function () {
                         getData();
@@ -360,9 +388,9 @@ if (!!window.jQuery) {
                     url: 'xx',
                     data: [],
                     time: 5000,
-                    analyze: function (data) {
+                    analyze: function (el, data) {
                         //$el.text(data);
-                        return $('<li></li>').text(data).get(0);
+                        return $(el).text(data);
                     },
                     ready: false
                 }
