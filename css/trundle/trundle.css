@@ -31,11 +31,12 @@ span {
     border: 2px solid red;
     overflow: hidden;
     display: block;
+    font: 14px arial;
 }
 
 #span1, #span2 {
     width: 50px;
-    height: 32px;
+    height: 34px;
 }
 
 #span1 li, #span2 li {
@@ -46,21 +47,21 @@ span {
 }
 
 #span3, #span4 {
-    width: 112px;
-    height: 22px;
+    width: 100px;
+    height: 16px;
     list-style: none;
 }
 
 #span3 ul, #span4 ul {
     width: 600px;
-    height: 20px;
+    height: 16px;
     list-style: none;
 }
 
 #span3 li, #span4 li {
     float: left;
-    width: 56px;
-    height: 20px;
+    width: 50px;
+    height: 16px;
     margin: 0 auto;
     list-style: none;
 }
