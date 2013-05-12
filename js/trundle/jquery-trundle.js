@@ -53,6 +53,17 @@ if (!!window.jQuery) {
                 }
                 return $slice.clone().addClass('cloned');
             },
+            getNextScrollTo: function (direct, scrollTo, distance) {
+                switch (direct.toLowerCase()) {
+                    default :
+                    case 'up':
+                    case 'left':
+                        return scrollTo + distance;
+                    case 'down':
+                    case 'right':
+                        return scrollTo - distance;
+                }
+            },
             _getFn: function (direct) {// get fn by direction
                 return (direct.toLowerCase() == 'up' || direct.toLowerCase() == 'down')
                     ? 'outerHeight' : 'outerWidth';
@@ -147,18 +158,7 @@ if (!!window.jQuery) {
          * @returns {Number}
          */
         TRUNDLE.prototype.scrollStep = function () {
-            switch (this.param.direct.toLowerCase()) {
-                default :
-                case 'up':
-                case 'left':
-                    this.scrollTo += this.fixedDistance;
-                    break;
-                case 'down':
-                case 'right':
-                    this.scrollTo -= this.fixedDistance;
-                    break;
-            }
-            return this.scrollTo;
+            return tool.getNextScrollTo(this.param.direct, this.scrollTo, this.fixedDistance);
         };
         /**
          * scroll fn
@@ -246,10 +246,6 @@ if (!!window.jQuery) {
             outline[0] = this.scrollTo;
             outline[1] = outline[0] + this.fixedDistance;
             $el = tool.getElsByOutline(this.$el.find(this.param.visibleEls), outline, this.param.direct);
-            this.$children.each(function (i, el) {
-                var add = !!$(el).data('_added_data_');
-                var show = !!$el.filter(el).length;
-            });
             if (!$el.length) return this;
             if (this.$children.index($el.eq(0)) == -1) return this;
             if (!$.map(this.$children,function (el) {
