@@ -95,7 +95,7 @@ if (!!window.jQuery) {
                     }
                     switch (param.hideStyle) {
                         case 'focus':
-                            $this.unbind('focus.placeholder keyup.placeholder blur.placeholder')
+                            $this.unbind('.placeholder')
                                 .bind('focus.placeholder keyup.placeholder',function () {
                                     $(this).prev().css('display', 'none');
                                 }).bind('blur.placeholder',function () {
@@ -104,15 +104,23 @@ if (!!window.jQuery) {
                                     } else {
                                         $(this).prev().css('display', 'inline');
                                     }
+                                }).bind('keypress.placeholder',function (e) {
+                                    if (e.keyCode >= 32 && e.keyCode <= 126) {
+                                        $(this).prev().css('display', 'none');
+                                    }
                                 }).triggerHandler('blur.placeholder');
                             break;
                         default :
-                            $this.unbind('keyup.placeholder blur.placeholder')
+                            $this.unbind('.placeholder')
                                 .bind('keyup.placeholder blur.placeholder',function () {
                                     if (this.value.length > 0) {
                                         $(this).prev().css('display', 'none');
                                     } else {
                                         $(this).prev().css('display', 'inline');
+                                    }
+                                }).bind('keypress.placeholder',function (e) {
+                                    if (e.keyCode >= 32 && e.keyCode <= 126) {
+                                        $(this).prev().css('display', 'none');
                                     }
                                 }).triggerHandler('blur.placeholder');
                     }
