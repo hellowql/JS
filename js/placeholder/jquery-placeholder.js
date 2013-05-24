@@ -49,11 +49,6 @@ if (!!window.jQuery) {
             }, obj);
             supported = param.placeholder in document.createElement('input');
             if (!supported) {
-                (function ($el, param) {
-                    $(window).unbind('resize.placeholder').bind('resize.placeholder', function () {
-                        $el.placeholder(param);
-                    })
-                }(this, param));
                 this.each(function () {
                     var $this = $(this), repeat;
                     placeholder = $this.attr(param.placeholder);
@@ -73,8 +68,6 @@ if (!!window.jQuery) {
                         color: '#bbb',
                         display: 'inline',
                         overflow: 'hidden',
-                        top: $this.parent().is('body') ? $this.offset().top : $this.position().top,
-                        left: $this.parent().is('body') ? $this.offset().left : $this.position().left,
                         width: $this.width(),
                         height: $this.height(),
                         textIndent: $this.css('textIndent'),
