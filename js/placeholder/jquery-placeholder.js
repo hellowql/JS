@@ -74,8 +74,6 @@ if (!!window.jQuery) {
                         margin: $this.css('margin'),
                         padding: tool.getPaddingAndBorder($this),
                         fontSize: $this.css('fontSize')
-                        //                        fontFamily: $this.css('fontFamily'),
-                        //                        fontWeight: $this.css('fontWeight')
                     }, param.css));
                     // buttons or other input element, line-height has no effect,so use height replaced
                     if ($this.is('input') || $this.is('button')) {
@@ -88,36 +86,61 @@ if (!!window.jQuery) {
                             this.id = plugin + '_' + uuid();
                         }
                         html.attr('for', this.id);
-                        $this.attr('autocomplete', 'off');
                         $this.before(html);
                     }
                     switch (param.hideStyle) {
                         case 'focus':
                             $this.unbind('.placeholder')
                                 .bind('focus.placeholder',function () {
-                                    $(this).prev().css('display', 'none');
+                                    var $el = $(this);
+                                    $el.prev().css('display', 'none').end().triggerHandler('clear.placeholder');
                                 }).bind('blur.placeholder',function () {
+                                    var $el = $(this);
                                     if (this.value.length > 0) {
-                                        $(this).prev().css('display', 'none');
+                                        $el.prev().css('display', 'none').end().triggerHandler('clear.placeholder');
                                     } else {
-                                        $(this).prev().css('display', 'inline');
+                                        $el.prev().css('display', 'inline');
                                     }
                                 }).triggerHandler('blur.placeholder');
                             break;
                         default :
                             $this.unbind('.placeholder')
                                 .bind('keyup.placeholder blur.placeholder',function () {
+                                    var $el = $(this);
                                     if (this.value.length > 0) {
-                                        $(this).prev().css('display', 'none');
+                                        $el.prev().css('display', 'none').end().triggerHandler('clear.placeholder');
                                     } else {
-                                        $(this).prev().css('display', 'inline');
+                                        $el.prev().css('display', 'inline');
                                     }
                                 }).bind('keypress.placeholder',function (e) {
+                                    var $el = $(this);
                                     if (e.keyCode >= 32 && e.keyCode <= 126) {
-                                        $(this).prev().css('display', 'none');
+                                        $el.prev().css('display', 'none').end().triggerHandler('clear.placeholder');
                                     }
                                 }).triggerHandler('blur.placeholder');
                     }
+                    // fix explorer stored value;
+                    (function ($el) {
+                        setTimeout(function () {
+                            $el.triggerHandler('blur.placeholder');
+                        }, 80);
+                        $el.bind('mouseleave.placeholder',function () {
+                            var $focus = $(':focus'), $el = $(this);
+                            if ($focus.length > 0 && $focus.get(0) === this && $el.data('_check_') === undefined) {
+                                $el.data('_check_', setInterval(function () {
+                                    $el.triggerHandler('blur.placeholder');
+                                }, 50));
+                            }
+                        }).bind('mouseenter.placeholder',function () {
+                                $(this).triggerHandler('clear.placeholder');
+                            }).bind('clear.placeholder', function () {
+                                var $el = $(this);
+                                if ($el.data('_check_') !== undefined) {
+                                    clearInterval($el.data('_check_'));
+                                    $el.removeData('_check_')
+                                }
+                            });
+                    }($this));
                 });
             }
             supported = html = placeholder = param = undefined;
