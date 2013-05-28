@@ -92,10 +92,13 @@ if (!!window.jQuery) {
                         case 'focus':
                             $this.unbind('.placeholder')
                                 .bind('focus.placeholder',function () {
-                                    var $el = $(this);
-                                    $el.prev().css('display', 'none').end().triggerHandler('clear.placeholder');
+                                    $(this).prev().css('display', 'none').end().triggerHandler('clear.placeholder');
                                 }).bind('blur.placeholder',function () {
-                                    var $el = $(this);
+                                    var $el = $(this), $focus = $(':focus');
+                                    if ($focus.length > 0 && $focus.get(0) === this) {
+                                        $el.triggerHandler('focus.placeholder');
+                                        return;
+                                    }
                                     if (this.value.length > 0) {
                                         $el.prev().css('display', 'none').end().triggerHandler('clear.placeholder');
                                     } else {
@@ -113,9 +116,8 @@ if (!!window.jQuery) {
                                         $el.prev().css('display', 'inline');
                                     }
                                 }).bind('keypress.placeholder',function (e) {
-                                    var $el = $(this);
                                     if (e.keyCode >= 32 && e.keyCode <= 126) {
-                                        $el.prev().css('display', 'none').end().triggerHandler('clear.placeholder');
+                                        $(this).prev().css('display', 'none').end().triggerHandler('clear.placeholder');
                                     }
                                 }).triggerHandler('blur.placeholder');
                     }
