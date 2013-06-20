@@ -41,14 +41,17 @@ a=a.replace(/\{(\n|[^}]*)\}/g,function(a){
 eclipse.console.println(a);
 //eclipse.editors.document.set(a);
 */
-
 function get(){
 	return eclipse.editors.document.get();
 }
 function deal(str){
+	/*
 	return str.replace(/\{(\n|[^}]*)\}/g,function(a){
 		return a.replace(/\s|\n/g,'');
 	}).replace(/\{/g,'\n\t{');
+	*/
+	//return str.replace(/\s+|\n/g,'').replace(/{/g,'\n\t{').replace(']','\n]');
+	return str.replace(/\s+|\n/g,'').replace(/(?={)/g,'\n\t').replace(/(?=])/,'\n');
 }
-eclipse.console.println(deal(get()));
-//eclipse.editors.document.set(a);
+//eclipse.console.println(deal(get()));
+eclipse.editors.document.set(deal(get()));
