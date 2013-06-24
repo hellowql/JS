@@ -1,104 +1,104 @@
-var Tool = function () {
+var Tool = function() {
 };
-Tool.text = function (txt) {
+Tool.text = function(txt) {
     if (txt != undefined) {
         eclipse.editors.document.set(txt);
     } else {
         return eclipse.editors.document.get();
     }
 };
-Tool.debug = function (txt) {
-    console.log(txt);
+Tool.debug = function(txt) {
+    eclipse.console.println(txt);
 };
-var Attr = function (name, value, type) {
-    this.name = name;
-    this.value = value;
-    this.type = type;
+Tool.html = function(tag, space) {
+    var html = ''/* 返回值 */, n = 'name'/* html DOCTYPE */, h = 'header'/* tag begin */, f = 'footer'/* tag end */, t = 'tagList'/* tag children tag */, tabspace = '    '/* 对齐 */, bsp = '\n'/* 换行 */, nc/* DOCTYPE 值 */, hc/* tag begin value */, fc/* tag end value */, tc/* tag children value */;
+    if (space == undefined) {
+        space = '';
+    }
+    if (( nc = tag[n])) {
+        html += nc;
+    }
+    if (( hc = tag[h])) {
+        html += hc;
+    }
+    if (( tc = tag[t])) {
+        for (var i = 0, j = tc.length; i < j; i++) {
+            html += bsp + space + Tool.html(tc[i], space + tabspace);
+        }
+    }
+    if (( fc = tag[f])) {
+        html += bsp + space.substring(tabspace.length) + fc;
+    }
+    return html;
 };
-Attr.prototype.value = function (val) {
+var TAG = function(header, tagList, footer) {
+    this.header = header;
+    if ( tagList instanceof Array) {
+        this.tagList = tagList;
+    } else if (tagList) {
+        this.tagList = [tagList];
+    }
+    this.footer = footer;
+};
+TAG.prototype.header = function(val) {
     if (val != undefined) {
-        this.value = val;
+        return this.header;
+    }
+    this.header = val;
+};
+TAG.prototype.tags = function(tags) {
+    if (tags == undefined) {
+        return this.tagList;
+    }
+    if (this.tagList) {
+        this.tagList.concat(tags);
     } else {
-        return this.value;
+        if ( tags instanceof Array) {
+            this.tagList = tags;
+        } else {
+            this.tagList = [tags];
+        }
     }
 };
-Attr.prototype.show = function () {
-    return (this.name && this.value) ? (this.name + "=" + this.value) : '';
+TAG.prototype.footer = function(val) {
+    if (val == undefined) {
+        return this.footer;
+    }
+    this.footer = val;
 };
-var Node = function (name, attrs, childs, type) {
+var HTML = function(tages, name) {
+    this.tagList = tags;
     this.name = name;
-    this.attrs = attrs;
-    this.childs = childs;
-    this.type = type;
 };
-Node.prototype.show = function () {
-    var html = '';
-    if (this.name) {
-        html = '<' + this.name + '';
-    }
-    if (this.attrs) {
-        for (var i = 0, j = this.attrs.length; i < j; i++) {
-            html += ' ' + this.attrs[i].show();
-        }
-    }
-    if (this.childs) {
-        html += '>';
-        for (var i = 0, j = this.childs.length; i < j; i++) {
-            html += this.childs[i].show();
-        }
-    } else {
-        html += '>';
-    }
-    if (this.name) {
-        html += '</' + this.name + '>';
-    }
-    return html;
+var FORMAT=function(txt){
+    this.txt=txt;
 };
-Node.prototype.setChilds = function (childs) {
-    this.childs = childs;
-};
-Node.prototype.push = function (child) {
-    if (this.childs) {
-        this.childs.push(child);
-    } else {
-        this.childs = [child];
+FORMAT.prototype.toLine=function(){
+    if(this.txt!=undefined){
+        this.line=this.txt.replace(/\r\n/g,'').replace(/>[\s\t\f]+</g,'><').replace(/\s+/g,' ');
     }
 };
-var Page = function (name, nodes, type) {
-    this.name = name;
-    this.nodes = nodes;
-    this.type = type;
+FORMAT.prototype.toHtml=function(){
+    this.html=new HTML();
 };
-Page.prototype.setNodes = function (nodes) {
-    this.nodes = nodes;
-};
-Page.prototype.pushNode = function (node) {
-    if (this.nodes) {
-        this.nodes.push(node);
-    } else {
-        this.nodes = [node];
+//for test start
+/*
+var tags = [];
+for (var i = 0; i < 5; i++) {
+    tags.push(new TAG('<div>', new TAG('哈哈哈'), '</div>'));
+    if (i == 3) {
+        tags.push(new TAG('<div>', [new TAG('<strong>', new TAG('gaga'), '</strong>'), new TAG('<a href="xxx.html">', new TAG('<button>', new TAG('SUBMIT'), '</button>'), '</a>')], '</div>'));
     }
-};
-Page.prototype.show = function () {
-    var html = '';
-    if (this.nodes) {
-        for (var i = 0, j = this.nodes.length; i < j; i++) {
-            html += this.nodes[i].show();
-        }
-    }
-    return html;
-};
-// for test--start
-
-var page = new Page('html');
-var nodes = [];
-for (var j = 0; j < 4; j++) {
-    var attrs = [];
-    for (var i = 0; i < 3; i++) {
-        attrs.push(new Attr('id' + i, '"dev_' + i + '"'));
-    }
-    var node = new Node('div' + j, attrs, null, null);
-    page.pushNode(node);
 }
-Tool.debug(page.show());
-// for test--end
+var html = new HTML(tags);
+Tool.debug(Tool.html(html, ''));
+*/
+//for test end
+
+var html=Tool.text();
+Tool.debug(html);
+html=html.replace(/\r\n/g,'').replace(/>[\s\t\f]+</g,'><').replace(/\s+/g,' ');
+Tool.debug('----------------------------------------------------------------------------------------------------');
+Tool.debug(html);
+Tool.debug('----------------------------------------------------------------------------------------------------');
+Tool.debug(html.replace(/\s+/,' '));
