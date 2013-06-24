@@ -1,0 +1,240 @@
+<!DOCTYPE>
+<html>
+<head>
+<!--STATUS OK-->
+<meta http-equiv="X-UA-Compatible" content="IE=7">
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<title>百度新闻搜索――全球最大的中文新闻平台</title>
+<meta name="description"
+	content="百度新闻是包含海量资讯的新闻服务平台，真实反映每时每刻的新闻热点。您可以搜索新闻事件、热点话题、人物动态、产品资讯等，快速了解它们的最新进展。">
+<meta name="viewport"
+	content="width=device-width, maximum-scale=1.5, initial-scale=0.76, user-scalable=yes" />
+<script type="text/javascript" src="format.eclipse.js"></script>	
+<script type="text/javascript"
+	src="/static/widget/common/base_js/base_js_5eaff3f7.js"></script>
+<link type="text/css" rel="stylesheet"
+	href="/static/widget/common/module_static/module_static_1b4514a0.css" />
+<link href="/static/channel/focustop/focustop/focustop_69c0f190.css"
+	rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<!--userbar-->
+	<div id="usrbar"></div>
+	<div id="header">
+		<!--顶部搜索框-->
+		<form action="http://news.baidu.com/ns" name="fbaidu" class="sbox">
+			<table class="sbox">
+				<tr>
+					<td class="logo">
+						<div class="logo">
+							<a href="http://news.baidu.com/view.html"><img
+								src="/resource/img/logo_news_137_46.png" alt="百度新闻"></a>
+						</div>
+					</td>
+					<td class="search">
+						<div class="tab">
+							<span class="cur">新闻</span><a href="http://www.baidu.com/"
+								title='web' onclick="queryTab(this);">网页</a><a
+								href="http://tieba.baidu.com/" title="tieba"
+								onclick="queryTab(this);">贴吧</a><a
+								href="http://zhidao.baidu.com/" title="zhidao"
+								onclick="queryTab(this);">知道</a><a
+								href="http://music.baidu.com/" title="music"
+								onclick="queryTab(this);">音乐</a><a
+								href="http://image.baidu.com/" title="image"
+								onclick="queryTab(this);">图片</a><a
+								href="http://video.baidu.com/" title="video"
+								onclick="queryTab(this);">视频</a><a href="http://map.baidu.com/"
+								title="map" onclick="queryTab(this);">地图</a><a
+								href="http://baike.baidu.com/" title="baike"
+								onclick="queryTab(this);">百科</a><a
+								href="http://wenku.baidu.com/" title="wenku"
+								onclick="queryTab(this);">文库</a>
+						</div>
+						<table>
+							<tr>
+								<td class="box"><div id="sugarea">
+										<span class="s_ipt_wr" id="s_ipt_wr"><input
+											class="word" id="ww" name="word" size="42" maxlength="100"
+											tabindex="1"></span><span class="s_btn_wr"><input
+											class="btn" type="submit" value="百度一下"
+											onmousedown="this.className='btn s_btn_h'"
+											onmouseout="this.className='btn'"></span>
+									</div></td>
+								<td class="help"><a
+									href="http://www.baidu.com/search/news_help.html">帮助</a><span
+									class="sep">|</span><a
+									href="http://news.baidu.com/advanced_news.html">高级搜索</a><span
+									class="sep">|</span><a
+									href="http://news.baidu.com/pianhao.html">设置</a></td>
+							</tr>
+						</table> <!--ecombegin--> <!--ecomend-->
+						<p class="search-radios">
+							<input type="radio" name="tn" value="news" checked id="news"><label
+								for="news">新闻全文</label> <input type="radio" name="tn"
+								value="newstitle" id="newstitle"><label for="newstitle"
+								style="padding: 0px;">新闻标题</label>
+						</p> <input type="hidden" name="from" value="news"> <input
+						type="hidden" name="cl" value="2"> <input type="hidden"
+						name="rn" value="20"> <input type="hidden" name="ct"
+						value="1">
+					</td>
+				</tr>
+			</table>
+			<a id="searchbox_tuiguang"
+				href="http://app.news.baidu.com/?src=yetou" target="_blank"></a>
+		</form>
+		<div id="menu">
+			<div class="menu-list">
+				<ul>
+					<li class="current"><a href="http://news.baidu.com/view.html">首页</a></li>
+					<li><a href="javascript:void(0);" id="nav-hot-link"
+						target="_blank">热点</a></li>
+					<li><a href="http://guonei.news.baidu.com/">国内</a></li>
+					<li><a href="http://guoji.news.baidu.com/">国际</a></li>
+					<li><a href="http://mil.news.baidu.com/">军事</a></li>
+					<li><a href="http://finance.baidu.com/">财经</a></li>
+					<li><a href="http://internet.baidu.com/">互联网</a></li>
+					<li><a href="http://sports.baidu.com/">体育</a></li>
+					<li><a href="http://yule.baidu.com/">娱乐</a></li>
+					<li><a href="http://lady.baidu.com/">女人</a></li>
+					<li><a href="http://tech.baidu.com/">科技</a></li>
+					<li><a href="http://fangchan.news.baidu.com/">房产</a></li>
+					<li><a href="http://auto.baidu.com/">汽车</a></li>
+					<li><a href="http://shehui.news.baidu.com/">社会</a></li>
+					<li><a href="http://youxi.news.baidu.com/">游戏</a></li>
+					<li><a href="http://jiaoyu.news.baidu.com/">教育</a></li>
+					<li><a href="http://tupian.news.baidu.com/">图片</a></li>
+					<li><a href="http://renwu.baidu.com/">人物</a></li>
+				</ul>
+			</div>
+			<div class="menu-ext">
+				<ul>
+					<li><a href="http://news.hao123.com/?src=baidunews_1016">新闻名站</a></li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+	<div class="l-left-col">
+		<div class="hotnews">
+			<ul>
+
+				<!-- sp_tag_start -->
+				<li><strong><a
+						href="http://news.baidu.com/z/ljjh/zhuanti.html" target="_blank"
+						class="a3">斯诺登抵达莫斯科 向厄瓜多尔申请避难</a> </strong></li>
+				<!-- sp_tag_end -->
+				<li><a
+					href="http://native.cnr.cn/news/201306/t20130623_512874837.shtml"
+					target="_blank">[香港政府：斯诺登合法离港]</a>&nbsp;<a
+					href="http://www.fmprc.gov.cn/mfa_chn/fyrbt_602243/t1052670.shtml"
+					target="_blank">[外交部：中央尊重港府]</a></li>
+				<!-- sp_tag_start -->
+				<li><strong><a
+						href="http://difang.gmw.cn/sh/2013-06/24/content_8046883.htm"
+						target="_blank" class="a3">上海枪杀6人嫌犯曾当过兵 猎枪来源成谜</a> </strong></li>
+				<!-- sp_tag_end -->
+				<li><a
+					href="http://news.xinhuanet.com/2013-06/24/c_124898735.htm"
+					target="_blank">[嫌犯因设备转让纠纷作案]</a>&nbsp;<a
+					href="http://news.sina.com.cn/c/2013-06-23/221927477438.shtml"
+					target="_blank">[两名哨兵一死一伤]</a>&nbsp;<a
+					href="http://china.cnr.cn/xwwgf/201306/t20130623_512874949.shtml"
+					target="_blank">[一民警中弹]</a></li>
+				<!-- sp_tag_start -->
+				<li><strong><a
+						href="http://native.cnr.cn/news/201306/t20130624_512875920.shtml"
+						target="_blank" class="a3">中国登山者巴基斯坦遇袭身亡 巴塔认领</a> </strong></li>
+				<!-- sp_tag_end -->
+				<li><a
+					href="http://news.china.com.cn/2013-06/24/content_29205717.htm"
+					target="_blank">[被叫醒后遭枪杀]</a>&nbsp;<a
+					href="http://news.china.com.cn/2013-06/24/content_29205698.htm"
+					target="_blank">[唯一幸存中国人通过卫星电话向国内求助]</a></li>
+			</ul>
+		</div>
+		<ul class="ulist ">
+			<li class="bold-item"><a
+				href="http://news.baidu.com/z/szsh/zhuanti.html" target="_blank">习近平与神十航天员通话
+					询问3人身体状况</a></li>
+
+			<li><a
+				href="http://news.china.com.cn/live/2013-06/24/content_20714601_4.htm"
+				target="_blank">李克强上任百日：打破惯性未救银行钱荒</a></li>
+
+			<li><a
+				href="http://world.huanqiu.com/regions/2013-06/4055463.html"
+				target="_blank">南非总统府宣布曼德拉病情危急 正尽力救治</a></li>
+
+			<li><a
+				href="http://ent.chinadaily.com.cn/mxneidi/2013-06-24/content_9394788.html"
+				target="_blank">四川原副省长郭永祥涉嫌严重违纪受调查</a></li>
+
+			<li><a
+				href="http://env.people.com.cn/n/2013/0624/c1010-21942652.html"
+				target="_blank">人民日报揭秘PX项目：致癌性与咖啡同级</a></li>
+
+			<li><a
+				href="http://news.china.com.cn/2013-06/24/content_29205656.htm"
+				target="_blank">媒体盘点被巡视组寻出的贪官 揪出一批“老虎”</a></li>
+		</ul>
+	</div>
+	<div class="l-right-col">
+		<div class="toparea-aside-top">
+			<div class="imgplayer clearfix" id="imgplayer">
+				<div id="imgplayer-control">
+					<a href="javascript:void(0);" id="imgplayer-prev"></a> <a
+						href="javascript:void(0);" id="imgplayer-next"></a>
+				</div>
+				<div class="imgview" id="imgView">
+					<a href="" target="_blank"><img
+						src="http://news.baidu.com/iphone/img/loading_3.gif"
+						class="firstimg" alt=""></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--页脚-->
+	<div class="bottombar">
+		<div class="bottombar-inner clearfix">
+			<div class="bot-left">
+				<h4>热门频道推荐</h4>
+				<div class="bot-left-list">
+					<ul>
+						<li><a href="http://guonei.news.baidu.com/" target="_blank">国内</a></li>
+						<li><a href="http://finance.baidu.com/" target="_blank">财经</a></li>
+						<li><a href="http://shehui.news.baidu.com/" target="_blank">社会</a></li>
+						<li><a href="http://yule.baidu.com/" target="_blank">娱乐八卦</a></li>
+						<li><a href="http://guoji.news.baidu.com" target="_blank">国际</a></li>
+						<li><a href="http://sports.baidu.com/" target="_blank">体育</a></li>
+						<li><a href="http://auto.baidu.com/" target="_blank">汽车</a></li>
+						<li><a href="http://lady.baidu.com/" target="_blank">女性时尚</a></li>
+						<li><a href="http://mil.news.baidu.com/" target="_blank">军事</a></li>
+						<li><a href="http://tech.baidu.com/" target="_blank">科技</a></li>
+						<li><a href="http://renwu.baidu.com/" target="_blank">人物</a></li>
+						<li><a href="http://internet.baidu.com/" target="_blank">互联网事</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="bot-right">
+				<h4>百度新闻独家出品</h4>
+				<p class="p1">新闻由机器选取每5分钟自动更新</p>
+				<p class="p2">百度新闻搜索源于互联网新闻网站和频道，系自动分类排列，百度不刊登或转载任何完整的新闻内容</p>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+		<span>文明办网举报电话：01059922822</span><a
+			href="http://tousu.baidu.com/news/add">投诉中心</a><span>京公网安备110000000001号</span><a
+			href="http://news.baidu.com/licence.html">互联网新闻信息服务许可</a> <span
+			style="color: #7777CC;">&copy;2013 Baidu</span> <a class="cy"
+			href="http://www.baidu.com/duty/">使用百度前必读</a> <a target="_blank"
+			href="http://net.china.cn/chinese/index.htm"><img
+			src="http://gimg.baidu.com/img/net.gif" alt="gimg"></a> <a target="_blank"
+			href="http://www.bj.cyberpolice.cn/index.htm"><img
+			alt="首都网络110报警服务" src="http://gimg.baidu.com/img/110.gif"></a> <a
+			target="_blank" href="http://www.bjjubao.org/"></a>
+	</div>
+</body>
+</html>

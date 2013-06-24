@@ -1,57 +1,104 @@
-/*	
-	var jsFiles = eclipse.resources.filesMatching('.*\.js', eclipse.resources.workspace.root); 
-	eclipse.window.alert('Number of .js files in workspace: ' + jsFiles.length);
-*/
-/*
-	if (eclipse.editors.selection == null) eclipse.runtime.die('No text selected!');
-	eclipse.editors.replaceSelection(eclipse.editors.selection.text.toUpperCase());
-*/
-/*
-	eclipse.console.print("hello world!");
-	eclipse.console.print("hello world!");
-	eclipse.console.println("hello world!");
-	eclipse.console.println("hello world!");
-*/
-/*
-	eclipse.console.println(eclipse.editors.clipboard);
-*/
-/*
-eclipse.console.println(eclipse.editors.document.getLength());
-*/
-/*
-	eclipse.editors.document.set("hello world!");
-*/
-/*
-eclipse.console.println(eclipse.editors.file.getName());
-eclipse.console.println(eclipse.editors.file.getFullPath().toPortableString());
-eclipse.console.println(eclipse.editors.file.getFullPath().toString());
-eclipse.console.println(eclipse.editors.file.getFullPath().getDevice());
-eclipse.console.println(eclipse.editors.file.getFullPath().getFileExtension());
-eclipse.console.println(eclipse.editors.file.getFullPath().toOSString());
-eclipse.console.println(eclipse.editors.file.getFullPath().toFile().getAbsolutePath());
-*/
-/*
-eclipse.editors.insert("xxx");
-*/
-/*
-var a=eclipse.editors.document.get();
-a=a.replace(/\{(\n|[^}]*)\}/g,function(a){
-	return a.replace(/\s|\n/g,'');
-}).replace(/\{/g,'\n\t{');
-eclipse.console.println(a);
-//eclipse.editors.document.set(a);
-*/
-function get(){
-	return eclipse.editors.document.get();
+var Tool = function () {
+};
+Tool.text = function (txt) {
+    if (txt != undefined) {
+        eclipse.editors.document.set(txt);
+    } else {
+        return eclipse.editors.document.get();
+    }
+};
+Tool.debug = function (txt) {
+    console.log(txt);
+};
+var Attr = function (name, value, type) {
+    this.name = name;
+    this.value = value;
+    this.type = type;
+};
+Attr.prototype.value = function (val) {
+    if (val != undefined) {
+        this.value = val;
+    } else {
+        return this.value;
+    }
+};
+Attr.prototype.show = function () {
+    return (this.name && this.value) ? (this.name + "=" + this.value) : '';
+};
+var Node = function (name, attrs, childs, type) {
+    this.name = name;
+    this.attrs = attrs;
+    this.childs = childs;
+    this.type = type;
+};
+Node.prototype.show = function () {
+    var html = '';
+    if (this.name) {
+        html = '<' + this.name + '';
+    }
+    if (this.attrs) {
+        for (var i = 0, j = this.attrs.length; i < j; i++) {
+            html += ' ' + this.attrs[i].show();
+        }
+    }
+    if (this.childs) {
+        html += '>';
+        for (var i = 0, j = this.childs.length; i < j; i++) {
+            html += this.childs[i].show();
+        }
+    } else {
+        html += '>';
+    }
+    if (this.name) {
+        html += '</' + this.name + '>';
+    }
+    return html;
+};
+Node.prototype.setChilds = function (childs) {
+    this.childs = childs;
+};
+Node.prototype.push = function (child) {
+    if (this.childs) {
+        this.childs.push(child);
+    } else {
+        this.childs = [child];
+    }
+};
+var Page = function (name, nodes, type) {
+    this.name = name;
+    this.nodes = nodes;
+    this.type = type;
+};
+Page.prototype.setNodes = function (nodes) {
+    this.nodes = nodes;
+};
+Page.prototype.pushNode = function (node) {
+    if (this.nodes) {
+        this.nodes.push(node);
+    } else {
+        this.nodes = [node];
+    }
+};
+Page.prototype.show = function () {
+    var html = '';
+    if (this.nodes) {
+        for (var i = 0, j = this.nodes.length; i < j; i++) {
+            html += this.nodes[i].show();
+        }
+    }
+    return html;
+};
+// for test--start
+
+var page = new Page('html');
+var nodes = [];
+for (var j = 0; j < 4; j++) {
+    var attrs = [];
+    for (var i = 0; i < 3; i++) {
+        attrs.push(new Attr('id' + i, '"dev_' + i + '"'));
+    }
+    var node = new Node('div' + j, attrs, null, null);
+    page.pushNode(node);
 }
-function deal(str){
-	/*
-	return str.replace(/\{(\n|[^}]*)\}/g,function(a){
-		return a.replace(/\s|\n/g,'');
-	}).replace(/\{/g,'\n\t{');
-	*/
-	//return str.replace(/\s+|\n/g,'').replace(/{/g,'\n\t{').replace(']','\n]');
-	return str.replace(/\s+|\n/g,'').replace(/(?={)/g,'\n\t').replace(/(?=])/,'\n');
-}
-//eclipse.console.println(deal(get()));
-eclipse.editors.document.set(deal(get()));
+Tool.debug(page.show());
+// for test--end
