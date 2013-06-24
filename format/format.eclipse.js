@@ -140,6 +140,8 @@ FORMAT.prototype.toHtml = function() {
 	if (this.arr) {
 		if (this.arr[0].search(/DOCTYPE/i) > -1) {
 			this.html = new HTML('', this.arr.shift());
+		}else{
+			this.html = new HTML();
 		}
 	}
 };
