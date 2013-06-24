@@ -35,6 +35,9 @@ if (!!window.jQuery) {
                     return padding.join(' ');
                 }
                 return null;
+            },
+            getMargin: function ($el) {
+                return [$el.css('marginTop'), $el.css('marginRight'), $el.css('marginBottom'), $el.css('marginLeft')].join(' ');
             }
         }
         $.fn[plugin] = function (obj) {
@@ -71,7 +74,7 @@ if (!!window.jQuery) {
                         width: $this.width(),
                         height: $this.height(),
                         textIndent: $this.css('textIndent'),
-                        margin: $this.css('margin'),
+                        margin: tool.getMargin($this),
                         padding: tool.getPaddingAndBorder($this),
                         fontSize: $this.css('fontSize')
                     }, param.css));
