@@ -1,3 +1,4 @@
+var isConsoleDebug=true;
 var TAG = function(header, tagList, footer) {
 	this.header = header;
 	if (tagList instanceof Array) {
@@ -7,7 +8,7 @@ var TAG = function(header, tagList, footer) {
 	}
 	this.footer = footer;
 };
-TAG.prototype.header = function(val) {
+TAG.prototype.setHeader = function(val) {
 	if (val != undefined) {
 		return this.header;
 	}
@@ -27,7 +28,7 @@ TAG.prototype.tags = function(tagList) {
 		}
 	}
 };
-TAG.prototype.footer = function(val) {
+TAG.prototype.setFooter = function(val) {
 	if (val == undefined) {
 		return this.footer;
 	}
@@ -57,29 +58,49 @@ Tool.text = function(txt) {
 	if (txt != undefined) {
 		eclipse.editors.document.set(txt);
 	} else {
+		if(isConsoleDebug){
+			return '<!DOCTYPE html PUBLIC"-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><div class="wp998"></div><div id="OSC_Userbar">当前访客身份：游客</div><div id="OSC_Channels"><ul class="cs_content"><li><a href="">支付宝专区</a></li><li><a href="">开源硬件专区</a></li></ul></div>';
+		}
 		return eclipse.editors.document.get();
 	}
 };
 Tool.debug = function(txt) {
-	eclipse.console.println(txt);
+	if(isConsoleDebug){
+		console.log(txt);
+	}else{
+		eclipse.console.println(txt);
+	}
 };
 Tool.html = function(tag, space) {
 	var html = ''/* 返回值 */, n = 'name'/* html DOCTYPE */, h = 'header'/*
 																		 * tag
 																		 * begin
 																		 */, f = 'footer'/*
-						 * tag end
-						 */, t = 'tagList'/*
-						 * tag children tag
-						 */, tabspace = '    '/* 对齐 */, bsp = '\n'/* 换行 */, nc/*
-															 * DOCTYPE 值
-															 */, hc/*
-			 * tag begin value
-			 */, fc/*
-			 * tag end value
-			 */, tc/*
-			 * tag children value
-			 */;
+																							 * tag
+																							 * end
+																							 */, t = 'tagList'/*
+																												 * tag
+																												 * children
+																												 * tag
+																												 */, tabspace = '    '/* 对齐 */, bsp = '\n'/* 换行 */, nc/*
+																																										 * DOCTYPE
+																																										 * 值
+																																										 */, hc/*
+																											 * tag
+																											 * begin
+																											 * value
+																											 */, fc/*
+																								 * tag
+																								 * end
+																								 * value
+																								 */, tc/*
+																					 * tag
+																					 * children
+																					 * value
+																					 */;
+	if(!tag){
+		return html;
+	}
 	if (space == undefined) {
 		space = '';
 	}
@@ -106,17 +127,17 @@ FORMAT.prototype.run = function() {
 	return this.toLine().toArr().toHtml();
 };
 FORMAT.prototype.reg = {
-	pre : {
-		bsp : /\r\n/g,
-		space : />\s+</g
-	},
-	deal : [ /^<[a-z:@]+(?:\s+[^>]+|\/)?>/, /^<\/[^>]+>/,
+	bsp : /\r\n/g,
+	space : />\s+</g,
+	lineTag:/\/>$|^[^<>]+$/,
+	closeTag:/<\/[^>]+>$/,
+	deal : [ /<!DOCTYPE[^>]*>/i,/^<[a-z:@]+(?:\s+[^>]+|\/)?>/i, /^<\/[^>]+>/,
 			/^<!--[^>]*-->|<%--[^>]*--%>/, /^[^<]*/ ]
 };
 FORMAT.prototype.toLine = function() {
 	if (this.txt != undefined) {
-		this.line = this.txt.replace(this.reg.pre.bsp, '').replace(
-				this.reg.pre.space, '><');
+		this.line = this.txt.replace(this.reg.bsp, '').replace(this.reg.space,
+				'><');
 	}
 	return this;
 };
@@ -126,7 +147,7 @@ FORMAT.prototype.toArr = function() {
 		var txt;
 		while (this.line.length) {
 			for ( var i = 0, j = this.reg.deal.length; i < j; i++) {
-				if ((txt = this.line.match(this.reg.deal[i]))) {
+				if ((txt = this.line.match(this.reg.deal[i]))&&txt[0]) {
 					this.line = this.line.replace(txt[0], '');
 					this.arr.push(txt[0]);
 					break;
@@ -137,13 +158,61 @@ FORMAT.prototype.toArr = function() {
 	return this;
 };
 FORMAT.prototype.toHtml = function() {
+	var tags=[];
 	if (this.arr) {
-		if (this.arr[0].search(/DOCTYPE/i) > -1) {
+		if (this.arr[0].search(this.reg.deal[0]) > -1) {
 			this.html = new HTML('', this.arr.shift());
-		}else{
+		} else {
 			this.html = new HTML();
 		}
+		this.html.tags(this.toTags(null));
 	}
+};
+FORMAT.prototype.isEndTag = function(tag) {
+	var flag = {flag:false,type:''};
+	if(this.reg.lineTag.test(tag)){
+		flag.flag=true;
+		flag.type='line';
+	}else if(this.reg.closeTag.test(tag)){
+		flag.flag=true;
+		flag.type='mline';
+	}
+	return flag;
+};
+FORMAT.prototype.toTags=function(tag){
+	var tags=[],tagStr,flag,ended=false;
+	while(this.arr.length){
+		tagStr=this.arr.shift();
+		flag=this.isEndTag(tagStr)
+		if(flag.flag){						
+			if(tag){
+				if(flag.type=='line'){
+					tag.tags(new TAG(tagStr));
+				}else if(flag.type=='mline'){
+					tag.setFooter(tagStr);
+					tags.push(tag);
+					tag=null;
+				}
+			}else{
+				tags.push(new TAG(tagStr));
+			}
+			if(ended){				
+				break;
+			}
+			ended=true;
+		}else{
+			ended=false;
+			if(tag){
+				tag.tags(this.toTags(tag));
+			}else{
+				tag=new TAG(tagStr)
+				tag.tags(this.toTags(tag));
+				tags.push(tag);
+				tag=null;
+			}
+		}
+	}
+	return tags;	
 };
 // for test start
 /*
