@@ -1,11 +1,19 @@
-var isConsoleDebug = true;
+var isConsoleDebug;
+try {
+	isConsoleDebug = window && window['console'];
+} catch (e) {
+	isConsoleDebug = false;
+}
 /**
  * 标签
  * 
- * @param {} header
- * @param {} tagList
- * @param {} footer
- * @returns {} 
+ * @param {}
+ *            header
+ * @param {}
+ *            tagList
+ * @param {}
+ *            footer
+ * @returns {}
  */
 var TAG = function(header, tagList, footer) {
 	this.header = header;
@@ -25,8 +33,9 @@ TAG.prototype.setHeader = function(val) {
 /**
  * 填充子标签
  * 
- * @param {} tagList
- * @returns {} 
+ * @param {}
+ *            tagList
+ * @returns {}
  */
 TAG.prototype.tags = function(tagList) {
 	if (tagList == undefined) {
@@ -46,9 +55,11 @@ TAG.prototype.setFooter = function(val) {
 /**
  * HTML页面
  * 
- * @param {} tagList
- * @param {} name
- * @returns {} 
+ * @param {}
+ *            tagList
+ * @param {}
+ *            name
+ * @returns {}
  */
 var HTML = function(tagList, name) {
 	this.tagList = tagList;
@@ -66,15 +77,16 @@ HTML.prototype.tags = function(tagList) {
 /**
  * 工具类
  * 
- * @returns {} 
+ * @returns {}
  */
 var Tool = function() {
 };
 /**
  * 获取或者回写文本
  * 
- * @param {} txt
- * @returns {} 
+ * @param {}
+ *            txt
+ * @returns {}
  */
 Tool.text = function(txt) {
 	if (txt != undefined) {
@@ -82,6 +94,15 @@ Tool.text = function(txt) {
 	} else {
 		if (isConsoleDebug) {
 			return '<div class="l-left-col"><div class="hotnews"><ul><li><strong><a href="http://news.baidu.com/z/ljjh/zhuanti.html"target="_blank"class="a3">斯诺登抵达莫斯科向厄瓜多尔申请避难</a></strong></li><li><strong><a href="http://native.cnr.cn/news/201306/t20130624_512875920.shtml"target="_blank"class="a3">中国登山者巴基斯坦遇袭身亡巴塔认领</a></strong></li><li><a href="http://news.china.com.cn/2013-06/24/content_29205717.htm"target="_blank">[被叫醒后遭枪杀]</a>&nbsp;<a href="http://news.china.com.cn/2013-06/24/content_29205698.htm"target="_blank">[唯一幸存中国人通过卫星电话向国内求助]</a></li></ul></div><ul class="ulist "><li class="bold-item"><a href="http://news.baidu.com/z/szsh/zhuanti.html"target="_blank">习近平与神十航天员通话询问3人身体状况</a></li><li><a href="http://news.china.com.cn/live/2013-06/24/content_20714601_4.htm"target="_blank">李克强上任百日：打破惯性未救银行钱荒</a></li><li><a href="http://world.huanqiu.com/regions/2013-06/4055463.html"target="_blank">南非总统府宣布曼德拉病情危急正尽力救治</a></li></ul></div><div class="l-right-col"><div class="toparea-aside-top"><div class="imgplayer clearfix"id="imgplayer"><div id="imgplayer-control"><a href="javascript:void(0);"id="imgplayer-prev"></a><a href="javascript:void(0);"id="imgplayer-next"></a></div><div class="imgview"id="imgView"><a href=""target="_blank"><img src="http://news.baidu.com/iphone/img/loading_3.gif"class="firstimg"alt=""></a></div></div></div></div>';
+		} else {
+			var name = "";
+			try {
+				name = eclipse.editors.file.getName();
+			} catch (e) {
+			}
+			if (/eclipse\.js$/.test(name)) {
+				return '<div class="l-left-col"><div class="hotnews"><ul><li><strong><a href="http://news.baidu.com/z/ljjh/zhuanti.html"target="_blank"class="a3">斯诺登抵达莫斯科向厄瓜多尔申请避难</a></strong></li><li><strong><a href="http://native.cnr.cn/news/201306/t20130624_512875920.shtml"target="_blank"class="a3">中国登山者巴基斯坦遇袭身亡巴塔认领</a></strong></li><li><a href="http://news.china.com.cn/2013-06/24/content_29205717.htm"target="_blank">[被叫醒后遭枪杀]</a>&nbsp;<a href="http://news.china.com.cn/2013-06/24/content_29205698.htm"target="_blank">[唯一幸存中国人通过卫星电话向国内求助]</a></li></ul></div><ul class="ulist "><li class="bold-item"><a href="http://news.baidu.com/z/szsh/zhuanti.html"target="_blank">习近平与神十航天员通话询问3人身体状况</a></li><li><a href="http://news.china.com.cn/live/2013-06/24/content_20714601_4.htm"target="_blank">李克强上任百日：打破惯性未救银行钱荒</a></li><li><a href="http://world.huanqiu.com/regions/2013-06/4055463.html"target="_blank">南非总统府宣布曼德拉病情危急正尽力救治</a></li></ul></div><div class="l-right-col"><div class="toparea-aside-top"><div class="imgplayer clearfix"id="imgplayer"><div id="imgplayer-control"><a href="javascript:void(0);"id="imgplayer-prev"></a><a href="javascript:void(0);"id="imgplayer-next"></a></div><div class="imgview"id="imgView"><a href=""target="_blank"><img src="http://news.baidu.com/iphone/img/loading_3.gif"class="firstimg"alt=""></a></div></div></div></div>';
+			}
 		}
 		return eclipse.editors.document.get();
 	}
@@ -89,8 +110,9 @@ Tool.text = function(txt) {
 /**
  * 调试输出文本
  * 
- * @param {} txt
- * @returns {} 
+ * @param {}
+ *            txt
+ * @returns {}
  */
 Tool.debug = function(txt) {
 	if (isConsoleDebug) {
@@ -102,8 +124,9 @@ Tool.debug = function(txt) {
 /**
  * 格式化对象
  * 
- * @param {} txt
- * @returns {} 
+ * @param {}
+ *            txt
+ * @returns {}
  */
 var FORMAT = function(txt) {
 	this.txt = txt;
@@ -111,7 +134,7 @@ var FORMAT = function(txt) {
 /**
  * 主方法
  * 
- * @returns {} 
+ * @returns {}
  */
 FORMAT.prototype.run = function() {
 	return this.toLine().toArr().toHtml().toString();
@@ -130,7 +153,7 @@ FORMAT.prototype.reg = {
 /**
  * 多行转成一行
  * 
- * @returns {} 
+ * @returns {}
  */
 FORMAT.prototype.toLine = function() {
 	if (this.txt != undefined) {
@@ -142,7 +165,7 @@ FORMAT.prototype.toLine = function() {
 /**
  * 一行字符串转成标签数组
  * 
- * @returns {} 
+ * @returns {}
  */
 FORMAT.prototype.toArr = function() {
 	if (this.line != undefined) {
@@ -163,7 +186,7 @@ FORMAT.prototype.toArr = function() {
 /**
  * 标签数组转成HTML对象
  * 
- * @returns {} 
+ * @returns {}
  */
 FORMAT.prototype.toHtml = function() {
 	var tags = [];
@@ -175,14 +198,14 @@ FORMAT.prototype.toHtml = function() {
 		}
 		this._toTags(this.html);
 	}
-	console.dir(this.html);
 	return this;
 };
 /**
  * 是否是结束标签
  * 
- * @param {} tagStr
- * @returns {} 
+ * @param {}
+ *            tagStr
+ * @returns {}
  */
 FORMAT.prototype._endTag = function(tagStr) {
 	var flag = {
@@ -201,8 +224,9 @@ FORMAT.prototype._endTag = function(tagStr) {
 /**
  * 转换成标签树结构
  * 
- * @param {} parent
- * @returns {} 
+ * @param {}
+ *            parent
+ * @returns {}
  */
 FORMAT.prototype._toTags = function(parent) {
 	var tagStr, flag, ended = false;

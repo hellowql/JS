@@ -6,7 +6,7 @@
 	if (eclipse.editors.selection == null) eclipse.runtime.die('No text selected!');
 	eclipse.editors.replaceSelection(eclipse.editors.selection.text.toUpperCase());
 */
-	eclipse.console.print("hello world!");
+//	eclipse.console.print("hello world!");
 /*
 	eclipse.console.print("hello world!");
 	eclipse.console.println("hello world!");
@@ -94,7 +94,9 @@ function deal(str){
 	}).replace(/\{/g,'\n\t{');
 	*/
 	//return str.replace(/\s+|\n/g,'').replace(/{/g,'\n\t{').replace(']','\n]');
-	return str.replace(/\s+|\n/g,'').replace(/(?={)/g,'\n\t').replace(/(?=])/,'\n');
+	//return str.replace(/\s+|\n/g,'').replace(/(?={)/g,'\n\t').replace(/(?=])/,'\n');
+	return str.replace(/(\n\r)+/g,'');
 }
-//eclipse.console.println(deal(get()));
-eclipse.editors.document.set(deal(get()));
+eclipse.console.println(deal(get()));
+//eclipse.editors.document.set(deal(get()));
+//eclipse.console.println(eclipse.editors.file.getName());
