@@ -1,0 +1,357 @@
+<%@ page contentType="text/html; charset=GBK"%>
+<%@ include file="/WEB-INF/jspf/taglibs.jspf"%>
+<%-- ��Ա��������  --%>
+<layout:override name="text_css">
+    <%-- text/css --%>
+</layout:override>
+<layout:override name="nav_bar">&raquo;Ͷ������&raquo;Ͷ��������</layout:override>
+<layout:override name="content">
+<!-- div class='cp'�е����� -->
+<h2 class="titlePage">
+    <c:choose>
+        <%--��֧�� 1,2,4 --%>
+        <c:when test="${command.insAppDto.appStatus == 1 or command.insAppDto.appStatus == 2 or command.insAppDto.appStatus == 4}">
+            ȷ��Ͷ����
+        </c:when>
+        <c:otherwise>Ͷ��������</c:otherwise>
+    </c:choose>
+</h2>
+<%--- ���ܱ� 6 �ܱ�ԭ��--%>
+<c:if test="${command.insAppDto.appStatus == 6}">
+    <div class="wa">
+        <h4>�ܱ�ԭ��</h4>
+
+        <p>${command.insAppDto.rejectCause }</p>
+    </div>
+</c:if>
+<%--һЩ��ʾ��Ϣ --%>
+<div class="okBox" style="display:none" id="okBox">
+    <div class="ok" id="ok">����ɹ�</div>
+</div>
+<c:if test="${fn:length(command.errors)>1}">
+    <div class="stop">
+        <div><h2>�ύ���ɹ�</h2>
+
+            <p>
+            <ul>
+                <c:forEach items="${command.errors}" var="err">
+                    <c:if test="${err.key ne 'InsAppDto.userNoLogon'}">
+                        <li>${err.value }</li>
+                    </c:if>
+                </c:forEach>
+            </ul>
+            </p>
+        </div>
+    </div>
+</c:if>
+<c:if test="${fn:length(command.errors)==1}">
+    <c:forEach items="${command.errors}" var="err">
+        <c:if test="${err.key ne 'InsAppDto.userNoLogon'}">
+            <div class="stop">
+                <div><h2>�ύ���ɹ�</h2>
+
+                    <p>
+                    <ul>
+                        <li>${err.value }</li>
+                    </ul>
+                    </p>
+                </div>
+            </div>
+        </c:if>
+    </c:forEach>
+</c:if>
+<form method="post" name="__kitty_out" action="/insapp.do?xcase=confirmInsAppFromSubmit">
+<%------- ������ Ͷ����ID Ͷ����״̬-------- --%>
+<input type="hidden" name="insAppDto.appId" id="appId" value="${command.insAppDto.appId} "/>
+<input type="hidden" name="insAppDto.appStatus" id="appStatus" value="${command.insAppDto.appStatus} "/>
+<input type="hidden" value="${xyz:encrypt(command.insAppDto.prodId) }" id="enProdId"/>
+<table border="0" align="center" cellpadding="0" cellspacing="0" class="tabXF">
+    <caption>Ͷ�����ţ�${command.insAppDto.appId }
+        <c:choose>
+            <%--��ȷ�� 1 --%>
+            <c:when test="${command.insAppDto.appStatus == 1}"><span class="green">����ȷ�ϣ�</span></c:when>
+            <%--��֧�� 2,4 --%>
+            <c:when test="${command.insAppDto.appStatus == 2 or command.insAppDto.appStatus == 4}"><span class="green">����֧����</span>
+            </c:when>
+            <%--- ֧����ɺ˱��� 3--%>
+            <c:when test="${command.insAppDto.appStatus == 3}"><span class="green">��֧����ɣ�</span></c:when>
+            <%--- �ѳб� 5--%>
+            <c:when test="${command.insAppDto.appStatus == 5}"><span class="green">���ѳб���</span></c:when>
+            <%--- ���ܱ� 6--%>
+            <c:when test="${command.insAppDto.appStatus == 6}"><span class="orange">�����ܱ���</span></c:when>
+        </c:choose>
+    </caption>
+    <tr>
+        <td>
+            <h2>
+                <strong>${command.insAppDto.prodName}</strong>
+                <span>[${command.insAppDto.insComName }]</span>
+            </h2>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <jsp:include page="jspf_freight_insurance.jsp"></jsp:include>
+            <div class="fr" style="margin-top:-8px">
+                ���úϼƣ�<strong class="imp"><dfn>&yen;</dfn>
+                <fmt:formatNumber
+                        value="${command.insAppDto.appPrice+command.insAppDto.appPostFee+command.insAppDto.invoicePostFee+command.insAppDto.chargeFee }"
+                        type="currency" pattern="0.00"/>
+            </strong>
+            </div>
+            �������<strong class="orange">${command.insAppDto.appQuantity }</strong> <span class="gray">|</span>
+            ���Ѻϼƣ�<strong class="orange"><dfn>&yen;</dfn>
+            <fmt:formatNumber value="${command.insAppDto.appPrice }" type="currency" pattern="0.00"/>
+        </strong> <span class="gray">|</span>
+            �ʼķѣ�<strong class="orange"><dfn>&yen;</dfn>
+            ${command.insAppDto.appPostFee+command.insAppDto.invoicePostFee }</strong> <span class="gray">|</span>
+            ����ѣ�<strong class="orange"><dfn>&yen;</dfn> ${command.insAppDto.chargeFee }</strong>
+        </td>
+    </tr>
+</table>
+<%--Ͷ������Ϣ --%>
+<table border="0" cellspacing="0" cellpadding="0" class="tabX">
+    <caption>Ͷ������Ϣ</caption>
+    <col width="14%"/>
+    <col width="36%"/>
+    <col width="14%"/>
+    <col width="36%"/>
+    <tr>
+        <th>��˾���</th>
+        <td>${command.insAppDto.appComName }</td>
+        <th>��֯�������</th>
+        <td>${command.insAppDto.appOrgNo }</td>
+    </tr>
+    <tr>
+        <th>��ϵ������</th>
+        <td>${command.insAppDto.appName }</td>
+        <th>��ϵ��ְ��</th>
+        <td>${command.insAppDto.appPosition }</td>
+    </tr>
+    <tr>
+        <th>����</th>
+        <td>${command.insAppDto.appEmail }</td>
+        <th>�ʱ�</th>
+        <td>${command.insAppDto.appZipCode }</td>
+    </tr>
+    <tr>
+        <th>��ϵ�ֻ�</th>
+        <td>${command.insAppDto.appMobile }</td>
+        <th>�̶��绰</th>
+        <td>${command.insAppDto.appTel }</td>
+    </tr>
+    <tr>
+        <th>Ͷ���˵���</th>
+        <td>${command.insAppDto.appProviceDisName } ${command.insAppDto.appCityDisName }</td>
+        <th>��˾��ַ</th>
+        <td>${command.insAppDto.appAddress }</td>
+    </tr>
+</table>
+<%--��������Ϣ--%>
+<table border='0' cellspacing='0' cellpadding='0' class="tabX">
+    <caption>����������Ϣ</caption>
+    <col width='14%'/>
+    <col width='36%'/>
+    <col width='14%'/>
+    <col width='36%'/>
+    <tr>
+        <th>��˾���</th>
+        <td>${command.insInsurantDtoList[0].comName }</td>
+        <th>��֯�������</th>
+        <td>${command.insInsurantDtoList[0].comOrgNo }</td>
+    </tr>
+    <tr>
+        <th>��ϵ������</th>
+        <td colspan="3">${command.insInsurantDtoList[0].name }</td>
+    </tr>
+    <tr>
+        <th>����</th>
+        <td>${command.insInsurantDtoList[0].email }</td>
+        <th>�ʱ�</th>
+        <td>${command.insInsurantDtoList[0].zipCode }</td>
+    </tr>
+    <tr>
+        <th>��ϵ�ֻ�</th>
+        <td>${command.insInsurantDtoList[0].mobile }</td>
+        <th>�̶��绰</th>
+        <td>${command.insInsurantDtoList[0].tel}</td>
+    </tr>
+    <tr>
+        <th>��˾��ַ</th>
+        <td colspan="3">${command.insInsurantDtoList[0].address }</td>
+    </tr>
+</table>
+<%--������ϸ --%>
+<table border="0" cellspacing="0" cellpadding="0" class="tabX">
+    <caption>������Ϣ</caption>
+    <col width="14%"/>
+    <col width="36%"/>
+    <col width="14%"/>
+    <col width="36%"/>
+    <tr>
+        <th>������ʽ</th>
+        <td>
+            <c:choose>
+                <c:when test="${command.insAppDto.appType == '0'}">���ӱ���</c:when>
+                <c:when test="${command.insAppDto.appType == '1'}">ֽ�ʱ���</c:when>
+                <c:when test="${command.insAppDto.appType == '0,1'}">���ӱ���&nbsp;ֽ�ʱ���</c:when>
+                <c:otherwise>&nbsp;</c:otherwise>
+            </c:choose>
+        </td>
+        <th>��Ʊ<br/>${(empty command.insAppDto.invoiceTitle)?'':'��Ʊ̧ͷ' }</th>
+        <td>
+            ${(command.insAppDto.invoiceStatus eq 1)?'��Ҫ':'����Ҫ'}
+            <br/>
+            ${(command.insAppDto.invoiceStatus eq 0)?'':(command.insAppDto.invoiceTitle) }
+        </td>
+    </tr>
+    <tr>
+        <th>Ͷ������</th>
+        <td>${command.insAppDto.addTime }</td>
+        <th>��������</th>
+        <td>${command.insAppDto.startingTime }&nbsp;${command.insAppDto.startingHour }ʱ</td>
+    </tr>
+    <c:if test="${(command.insAppDto.invoiceStatus == 1)||(command.insAppDto.appType == '1' )||('0,1'== command.insAppDto.appType )}">
+        <tr>
+            <th>��ϵ�ֻ�</th>
+            <td>
+                ${command.insDeliAddrDto.mobile }
+            </td>
+            <th>�̶��绰</th>
+            <td>
+                ${command.insDeliAddrDto.tel }
+            </td>
+        </tr>
+        <tr>
+            <th>�ʼĵ�ַ</th>
+            <td>${command.insDeliAddrDto.provinceDisName }&nbsp;${command.insDeliAddrDto.cityDisName }&nbsp;${command.insDeliAddrDto.address }</td>
+            <th>�ʱ�</th>
+            <td>${command.insDeliAddrDto.zipCode }</td>
+        </tr>
+    </c:if>
+</table>
+<%--�Ż�ȯ��Ϣ --%>
+<c:if test="${command.insAppDto.couponId ne 0 }">
+    <table border="0" cellspacing="0" cellpadding="0" class="tabX">
+        <caption>�Ż�ȯ/���ȯ</caption>
+        <col width="14%"/>
+        <col width="36%"/>
+        <col width="14%"/>
+        <col width="36%"/>
+        <tr>
+            <c:if test="${command.insAppDto.couponType eq 0}">
+                <th>�Ż�ȯ���</th>
+                <td><dfn>&yen;</dfn>${command.insAppDto.couponPar }</td>
+                <th>�Ż�ȯ���ý��</th>
+                <td><dfn>&yen;</dfn>${command.insAppDto.couponDeductAmt }</td>
+            </c:if>
+            <c:if test="${command.insAppDto.couponType eq 1}">
+                <th>���ȯ���</th>
+                <td><dfn>&yen;</dfn>${command.insAppDto.couponPar }</td>
+                <th>���ȯ���ý��</th>
+                <td><dfn>&yen;</dfn>${command.insAppDto.couponDeductAmt }</td>
+            </c:if>
+        </tr>
+    </table>
+</c:if>
+<div class="tipBox">
+    <h4>Ͷ������</h4>
+    <ul>
+        <li>Ͷ��ʱ����Ͷ�����Ѿ͸ò�Ʒ�ı��������Լ����ս���򱻱����˽�������ȷ˵������������ͬ�⡣</li>
+        <li>��Ͷ������������������������д��ʵ����֪�����Ͷ����Ϣ����ʵ�����չ�˾����Ȩ���⣬һ�к���ɱ��˳е���</li>
+        <li>��Ͷ�������Ķ��ò�Ʒ<a href="javascript:void" id="allInstrem">��ϸ����</a>�����ر���������й���������Ͷ���ˡ�����������������ݽ����Ķ�����Ͷ�����ش�ͬ���������ȫ�����ݡ�
+        </li>
+        <li>���&laquo;�л����񹲺͹��ͬ��&raquo;��ʮһ���涨����ݵ����ǺϷ��ĺ�ͬ������ʽ�����˽��ܱ��չ�˾����һվ�ṩ�ĵ��ӱ�����Ϊ��Ͷ���������Ч�ĺϷ���Чƾ֤��������ȫ֤��Ч����</li>
+    </ul>
+</div>
+<div class="button">
+    <c:choose>
+        <%--��֧�� 1,2,4 --%>
+        <c:when test="${command.insAppDto.appStatus == 1 or command.insAppDto.appStatus == 2 or command.insAppDto.appStatus == 4}">
+            <button type="submit" class="big">ȷ�ϲ�֧��</button>
+            <div class="buttonMore">
+                <%--��ȷ�� 1 --%>
+                <c:if test="${command.insAppDto.appStatus == 1}">
+                    <label><a href="/insapp.do?xcase=editInsApp&appId=${command.insAppDto.appId}"
+                              name="__kitty_out"><img src="/images/ico_edit.gif" alt="�޸�"/>�޸�</a></label>
+                    <span class="gray">|</span>
+                </c:if>
+                <label><a href="javascript:deleteAppInfo()"><img src="/images/ico_del.gif" alt="����"/>����</a></label>
+                <span class="gray">|</span>
+                <label> <a
+                        href="/appinfo.do?xcase=viewAppInfo&appStatus=${command.insAppDto.appStatus}">�����б�</a></label>
+            </div>
+        </c:when>
+        <%--- ���ܱ� 6---%>
+        <c:when test="${command.insAppDto.appStatus == 6}">
+            <a href="/appinfo.do?xcase=viewAppInfo&appStatus=${command.insAppDto.appStatus}">�����б�</a>
+        </c:when>
+        <%--- ֧����ɺ˱��� 3 ---%>
+        <c:when test="${command.insAppDto.appStatus == 3}">
+            <%------- ��Ʒ���� ��11023-������------%>
+            <c:if test="${command.insAppDto.prodKind != 11023}">
+                <a href="/insapp.do?xcase=inputSameInsApp&appId=${command.insAppDto.appId }" name="__kitty_out"><img
+                        src="/images/ico_add.gif" alt="���"/>������Ʊ���</a>
+                <span class="gray">|</span>
+            </c:if>
+            <a href="/appinfo.do?xcase=viewAppInfo&appStatus=${command.insAppDto.appStatus}">�����б�</a>
+        </c:when>
+        <%--- �ѳб� 5--%>
+        <c:when test="${command.insAppDto.appStatus == 5}">
+            <%------- ��Ʒ���� ��11023-������------%>
+            <c:if test="${command.insAppDto.prodKind != 11023}">
+                <a href="/insapp.do?xcase=inputSameInsApp&appId=${command.insAppDto.appId }"><img
+                        src="/images/ico_add.gif" alt="���"/>������Ʊ���</a>
+                <span class="gray">|</span>
+            </c:if>
+            <a href="/appinfo.do?xcase=viewAppInfo&appStatus=${command.insAppDto.appStatus}">�����б�</a>
+        </c:when>
+    </c:choose>
+</div>
+</form>
+</layout:override>
+<%-- �ű����� (jquery-1.4.2.js�Ѿ���ӣ������ٴ�����)--%>
+<layout:override name="text_javascript">
+    <script type="text/javascript" src="/script/jspf_freight_insurance.js"></script>
+    <script type="text/javascript">
+        $("#allInstrem").click(function () {
+            window.open("/insproduct.do?xcase=detailProductToInsTerm&prodId=" + $("#enProdId").val());
+        })
+        //ɾ�� ajax
+        function deleteAppInfo() {
+            var flag = confirm("�Ƿ���Ҫ�����Ͷ������");
+            if (flag) {
+                $.ajax({
+                    type: "POST",
+                    url: "/insapp.do?xcase=deleteApp",
+                    data: "insAppDto.appId=" + $("#appId").val(),
+                    success: function (result) {
+                        //1.���Ͷ�����Ƿ���������
+                        if ("app_deleted" == result) {
+                            $("#okBox").show();
+                            $("#ok").html("��Ͷ�����ѳ���!");//��ԭ��׷�ӵ���
+                            setTimeout('refresh()', 3000);
+                            //2. ����Ͷ�����Ƿ�����δ�ɹ�֧������֮ǰ��״̬
+                        } else if ("app_paid" == result) {
+                            $("#okBox").show();
+                            $("#ok").html("��Ͷ������֧���ɹ�,���ܳ���!");//��ԭ��׷�ӵ���
+                            setTimeout('refresh()', 3000);
+                        } else if ("true" == result) {
+                            $("#okBox").show();
+                            $("#ok").html("����ɹ�!");//��ԭ��׷�ӵ���
+                            setTimeout('refresh()', 2000);
+                        }
+                    }
+                });
+            }
+        }
+        //ˢ�±?
+        function refresh() {
+            $("#okBox").fadeOut("slow");
+            var status = $("#appStatus").val();
+            window.location.href = "/appinfo.do?xcase=viewAppInfo&appStatus=" + status;
+        }
+    </script>
+</layout:override>
+<%-- ��Ա����ҳ��ͳһʹ�ÿ�ҳ�� --%>
+<jsp:include page="/WEB-INF/jsp/member_center.jsp"/>

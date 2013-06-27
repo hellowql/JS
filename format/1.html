@@ -1,0 +1,92 @@
+<%@ page contentType="text/html; charset=GBK"%>
+<%@ include file="/WEB-INF/jspf/taglibs.jspf"%>
+<layout:override name="text_css">
+    <link type="text/css" rel="stylesheet" href="/style/member_center.css"/>
+    <link href="/mice/datePlug/themes/sunny/jquery.ui.datepicker.css" rel="stylesheet" type="text/css"/>
+</layout:override>
+<layout:override name="content">
+    <div id="main">
+        <form method="post" action="/insapp.do?xcase=submitInsAppFromProject" id="form">
+            <div class="stepIns sp2Ins">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <col width="25%"/>
+                    <col width="25%"/>
+                    <col width="25%"/>
+                    <col/>
+                    <tr>
+                        <td>1. ��дͶ������Ϣ</td>
+                        <td class="now">2. ��дͶ���ƻ�</td>
+                        <td>3. ȷ��Ͷ����</td>
+                        <td>4. ֧�������Ͷ��</td>
+                    </tr>
+                </table>
+            </div>
+            <c:if test="${fn:length(command.errors)>1}">
+                <div class="stop error">
+                    <div><h2>�ύ���ɹ�</h2>
+
+                        <p>
+                        <ul>
+                            <c:forEach items="${command.errors}" var="err">
+                                <c:if test="${err.key ne 'InsAppDto.userNoLogon'}">
+                                    <li>${err.value }</li>
+                                </c:if>
+                            </c:forEach>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </c:if>
+            <c:if test="${fn:length(command.errors)==1}">
+                <c:forEach items="${command.errors}" var="err">
+                    <c:if test="${err.key ne 'InsAppDto.userNoLogon'}">
+                        <div class="stop error">
+                            <div><h2>�ύ���ɹ�</h2>
+
+                                <p>
+                                <ul>
+                                    <li>${err.value }</li>
+                                </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </c:if>
+                </c:forEach>
+            </c:if>
+            <h2>
+                <strong>
+                    <a href="/mall/detail-${xyz:encrypt(command.insAppDto.prodId) }.html">
+                        ${command.insAppDto.prodName }
+                    </a>
+                    <span>[${command.insAppDto.insComName }]</span>
+                </strong>
+            </h2>
+
+            <%--��дͶ�������޸�Ͷ����ҳ�� --%>
+            <jsp:include page="/WEB-INF/jsp/insure/input_insure_project_body.jsp"></jsp:include>
+            <div class="button">
+                <button type="submit" class="big" id='subCmd'>��һ��</button>
+                <div class="buttonMore"><label><a
+                        href="javascript:saveButNotSubmit()" id="save"><img src="/images/ico_save.gif"
+                                                                            alt="����"/>����Ͷ����</a></label> <span
+                        class="gray">|</span> <label><a
+                        href="javascript:goback(${command.insAppDto.appId })">������һ��</a></label></div>
+            </div>
+        </form>
+    </div>
+</layout:override>
+<layout:override name="text_javascript">
+    <script type="text/javascript" src="/mice/areaGear/areaGear2.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/mice/datePlug/jquery.ui.datepicker.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/script/insure/input_insure_project.js" charset="UTF-8"></script>
+    <%--���ٵ�¼��--%>
+    <jsp:include page="/WEB-INF/jsp/member/qreg.jsp"></jsp:include>
+    <c:if test="${not empty command.errors['InsAppDto.userNoLogon']}">
+        <script type="text/javascript">
+            $(function () {
+                qreg.islogin();
+            });
+        </script>
+    </c:if>
+</layout:override>
+<jsp:include page="/WEB-INF/layout/layout_register.jsp"/>
